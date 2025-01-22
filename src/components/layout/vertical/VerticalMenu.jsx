@@ -6,6 +6,8 @@ import useVerticalNav from '@menu/hooks/useVerticalNav'
 import StyledVerticalNavExpandIcon from '@menu/styles/vertical/StyledVerticalNavExpandIcon'
 import menuItemStyles from '@core/styles/vertical/menuItemStyles'
 import menuSectionStyles from '@core/styles/vertical/menuSectionStyles'
+import { useEffect, useState } from 'react'
+import { useRouter } from 'next/router'
 
 const RenderExpandIcon = ({ open, transitionDuration }) => (
   <StyledVerticalNavExpandIcon open={open} transitionDuration={transitionDuration}>
@@ -18,6 +20,43 @@ const VerticalMenu = ({ scrollMenu }) => {
   const verticalNavOptions = useVerticalNav()
   const { isBreakpointReached, transitionDuration } = verticalNavOptions
   const ScrollWrapper = isBreakpointReached ? 'div' : PerfectScrollbar
+
+  const [role, setRole] = useState(null)
+  const router = useRouter()
+
+  useEffect(() => {
+    const storedRole = localStorage.getItem('role')
+    if (storedRole) {
+      setRole(storedRole)
+    } else {
+      router.push('/login')
+    }
+  }, [router])
+
+  const renderMenuItems = () => {
+    const menuItems = [
+      { href: '/home', icon: 'tabler-smart-home', label: 'Home' },
+      { href: '/about', icon: 'tabler-info-circle', label: 'About' }
+    ]
+
+    if (role === 'admin') {
+      menuItems.push({ href: '/admin', icon: 'tabler-shield', label: 'Admin' })
+    } else if (role === 'student') {
+      menuItems.push({ href: '/student', icon: 'tabler-school', label: 'Student' })
+    } else if (role === 'faculty') {
+      menuItems.push({ href: '/faculty', icon: 'tabler-teacher', label: 'Faculty' })
+    } else if (role === 'study-program') {
+      menuItems.push({ href: '/study-program', icon: 'tabler-book', label: 'Study Program' })
+    } else if (role === 'administration') {
+      menuItems.push({ href: '/administration', icon: 'tabler-building', label: 'Administration' })
+    }
+
+    return menuItems.map(item => (
+      <MenuItem key={item.href} href={item.href} icon={<i className={item.icon} />}>
+        {item.label}
+      </MenuItem>
+    ))
+  }
 
   return (
     <ScrollWrapper
@@ -38,27 +77,7 @@ const VerticalMenu = ({ scrollMenu }) => {
         renderExpandedMenuItemIcon={{ icon: <i className='text-xs tabler-circle' /> }}
         menuSectionStyles={menuSectionStyles(verticalNavOptions, theme)}
       >
-        <MenuItem href='/home' icon={<i className='tabler-smart-home' />}>
-          Home
-        </MenuItem>
-        <MenuItem href='/about' icon={<i className='tabler-info-circle' />}>
-          About
-        </MenuItem>
-        <MenuItem href='/admin' icon={<i className='tabler-shield' />}>
-          Admin
-        </MenuItem>
-        <MenuItem href='/student' icon={<i className='tabler-school' />}>
-          Student
-        </MenuItem>
-        <MenuItem href='/faculty' icon={<i className='tabler-teacher' />}>
-          Faculty
-        </MenuItem>
-        <MenuItem href='/study-program' icon={<i className='tabler-book' />}>
-          Study Program
-        </MenuItem>
-        <MenuItem href='/administration' icon={<i className='tabler-building' />}>
-          Administration
-        </MenuItem>
+        {renderMenuItems()}
       </Menu>
     </ScrollWrapper>
   )
