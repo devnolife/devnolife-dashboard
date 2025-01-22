@@ -1,4 +1,3 @@
-// Next Imports
 import { Public_Sans } from 'next/font/google'
 
 // Theme Options Imports
@@ -35,7 +34,20 @@ const theme = (settings, mode, direction) => {
       dark: '225 222 245',
       lightShadow: '47 43 61',
       darkShadow: '19 17 32'
-    }
+    },
+    locale: 'id-ID',
+    palette: {
+      primary: {
+        main: '#0D47A1',
+      },
+      secondary: {
+        main: '#1976D2',
+      },
+      background: {
+        default: '#E3F2FD',
+        paper: '#FFFFFF',
+      },
+    },
   }
 }
 
