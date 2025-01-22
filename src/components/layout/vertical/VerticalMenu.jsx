@@ -1,3 +1,7 @@
+import { useEffect, useState } from 'react'
+
+import { useRouter } from 'next/router'
+
 import { useTheme } from '@mui/material/styles'
 import PerfectScrollbar from 'react-perfect-scrollbar'
 
@@ -6,8 +10,6 @@ import useVerticalNav from '@menu/hooks/useVerticalNav'
 import StyledVerticalNavExpandIcon from '@menu/styles/vertical/StyledVerticalNavExpandIcon'
 import menuItemStyles from '@core/styles/vertical/menuItemStyles'
 import menuSectionStyles from '@core/styles/vertical/menuSectionStyles'
-import { useEffect, useState } from 'react'
-import { useRouter } from 'next/router'
 
 const RenderExpandIcon = ({ open, transitionDuration }) => (
   <StyledVerticalNavExpandIcon open={open} transitionDuration={transitionDuration}>
@@ -26,6 +28,7 @@ const VerticalMenu = ({ scrollMenu }) => {
 
   useEffect(() => {
     const storedRole = localStorage.getItem('role')
+
     if (storedRole) {
       setRole(storedRole)
     } else {
