@@ -85,6 +85,10 @@ const LoginV2 = ({ mode }) => {
 
   const handleClickShowPassword = () => setIsPasswordShown(show => !show)
 
+  const handleLogin = role => {
+    router.push(`/${role}`)
+  }
+
   return (
     <div className='flex bs-full justify-center'>
       <div
@@ -172,6 +176,23 @@ const LoginV2 = ({ mode }) => {
               </IconButton>
             </div>
           </form>
+          <div className='flex flex-col gap-2 mt-4'>
+            <Button fullWidth variant='outlined' onClick={() => handleLogin('admin')}>
+              Login as Admin
+            </Button>
+            <Button fullWidth variant='outlined' onClick={() => handleLogin('student')}>
+              Login as Student
+            </Button>
+            <Button fullWidth variant='outlined' onClick={() => handleLogin('faculty')}>
+              Login as Faculty
+            </Button>
+            <Button fullWidth variant='outlined' onClick={() => handleLogin('study-program')}>
+              Login as Study Program
+            </Button>
+            <Button fullWidth variant='outlined' onClick={() => handleLogin('administration')}>
+              Login as Administration
+            </Button>
+          </div>
         </div>
       </div>
     </div>
