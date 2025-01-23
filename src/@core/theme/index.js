@@ -35,19 +35,6 @@ const theme = (settings, mode, direction) => {
       lightShadow: '47 43 61',
       darkShadow: '19 17 32'
     },
-    locale: 'id-ID',
-    palette: {
-      primary: {
-        main: '#0D47A1',
-      },
-      secondary: {
-        main: '#1976D2',
-      },
-      background: {
-        default: '#E3F2FD',
-        paper: '#FFFFFF',
-      },
-    },
   }
 }
 

@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 
-import { useRouter } from 'next/router'
+import dynamic from 'next/dynamic'
+import { useRouter } from 'next/navigation'
 
 import { useTheme } from '@mui/material/styles'
 import PerfectScrollbar from 'react-perfect-scrollbar'
@@ -27,20 +28,23 @@ const VerticalMenu = ({ scrollMenu }) => {
   const router = useRouter()
 
   useEffect(() => {
-    const storedRole = localStorage.getItem('role')
+    const storedUser = localStorage.getItem('user')
 
-    if (storedRole) {
-      setRole(storedRole)
+    if (storedUser) {
+      try {
+        const parsedUser = JSON.parse(storedUser)
+
+        setRole(parsedUser.role)
+      } catch {
+        router.push('/login')
+      }
     } else {
       router.push('/login')
     }
   }, [router])
 
   const renderMenuItems = () => {
-    const menuItems = [
-      { href: '/home', icon: 'tabler-smart-home', label: 'Home' },
-      { href: '/about', icon: 'tabler-info-circle', label: 'About' }
-    ]
+    const menuItems = []
 
     if (role === 'admin') {
       menuItems.push({ href: '/admin', icon: 'tabler-shield', label: 'Admin' })
@@ -86,4 +90,4 @@ const VerticalMenu = ({ scrollMenu }) => {
   )
 }
 
-export default VerticalMenu
+export default dynamic(() => Promise.resolve(VerticalMenu), { ssr: false })

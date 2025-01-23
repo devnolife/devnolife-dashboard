@@ -1,9 +1,8 @@
 import { NextResponse } from "next/server"
 
-export async function POST(req, res) {
-
+export async function POST(req) {
   try {
-    const { role } = await req.json()
+    const { username, password } = await req.json()
 
     const users = {
       admin: { username: 'admin', password: 'admin123' },
@@ -13,14 +12,24 @@ export async function POST(req, res) {
       administration: { username: 'tatausaha', password: 'tatausaha123' }
     }
 
-    if (users[role]) {
-      return NextResponse.son({ message: `Logged in as ${role}`, user: users[role] })
-    } else {
-      return NextResponse.error(new Error('Invalid role'))
+    let foundRole = null
+
+    for (const role in users) {
+      if (
+        users[role].username === username &&
+        users[role].password === password
+      ) {
+        foundRole = role
+        break
+      }
     }
 
+    if (foundRole) {
+      return NextResponse.json({ message: `Logged in as ${foundRole}`, user: { role: foundRole } })
+    } else {
+      return NextResponse.json({ error: 'Invalid credentials' }, { status: 401 })
+    }
   } catch (e) {
     return NextResponse.error(e)
   }
-
 }

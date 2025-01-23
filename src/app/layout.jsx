@@ -28,7 +28,7 @@ const RootLayout = async props => {
 
   return (
     <html id='__next' lang='en' dir={direction} suppressHydrationWarning>
-      <body className='flex is-full min-bs-full flex-auto flex-col'>
+      <body className='flex flex-col flex-auto is-full min-bs-full'>
         <InitColorSchemeScript attribute='data' defaultMode={systemMode} />
         {children}
       </body>

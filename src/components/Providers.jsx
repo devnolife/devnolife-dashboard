@@ -1,5 +1,5 @@
 import { ApolloProvider } from '@apollo/client';
-import client from 'src/graphql/client';
+
 
 // Context Imports
 import { VerticalNavProvider } from '@menu/contexts/verticalNavContext'
@@ -22,9 +22,7 @@ const Providers = async props => {
     <VerticalNavProvider>
       <SettingsProvider settingsCookie={settingsCookie} mode={mode}>
         <ThemeProvider direction={direction} systemMode={systemMode}>
-          <ApolloProvider client={client}>
-            {children}
-          </ApolloProvider>
+          {children}
         </ThemeProvider>
       </SettingsProvider>
     </VerticalNavProvider>

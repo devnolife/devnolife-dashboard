@@ -1,12 +1,11 @@
 'use client'
-
-// React Imports
 import { useState } from 'react'
 
-// Next Imports
 import { useRouter } from 'next/navigation'
 
-// MUI Imports
+import { useForm } from 'react-hook-form'
+
+
 import useMediaQuery from '@mui/material/useMediaQuery'
 import { styled, useTheme } from '@mui/material/styles'
 import Typography from '@mui/material/Typography'
@@ -17,22 +16,17 @@ import Button from '@mui/material/Button'
 import FormControlLabel from '@mui/material/FormControlLabel'
 import Divider from '@mui/material/Divider'
 
-// Third-party Imports
 import classnames from 'classnames'
 
-// Component Imports
 import Link from '@components/Link'
 import Logo from '@components/layout/shared/Logo'
 import CustomTextField from '@core/components/mui/TextField'
-
-// Config Imports
 import themeConfig from '@configs/themeConfig'
 
-// Hook Imports
 import { useImageVariant } from '@core/hooks/useImageVariant'
 import { useSettings } from '@core/hooks/useSettings'
 
-// Styled Custom Components
+
 const LoginIllustration = styled('img')(({ theme }) => ({
   zIndex: 2,
   blockSize: 'auto',
@@ -57,21 +51,20 @@ const MaskImg = styled('img')({
 })
 
 const LoginV2 = ({ mode }) => {
-  // States
+
   const [isPasswordShown, setIsPasswordShown] = useState(false)
-  const [username, setUsername] = useState('')
-  const [password, setPassword] = useState('')
   const [error, setError] = useState('')
 
-  // Vars
+  const { register, handleSubmit, formState: { errors }, setError: setFormError } = useForm()
+
   const darkImg = '/images/pages/auth-mask-dark.png'
   const lightImg = '/images/pages/auth-mask-light.png'
   const darkIllustration = '/images/illustrations/auth/v2-login-dark.png'
-  const lightIllustration = '/images/illustrations/auth/v2-login-light.png'
+  const lightIllustration = '/images/illusstrations/auth/v2-login-light.png'
   const borderedDarkIllustration = '/images/illustrations/auth/v2-login-dark-border.png'
   const borderedLightIllustration = '/images/illustrations/auth/v2-login-light-border.png'
 
-  // Hooks
+
   const router = useRouter()
   const { settings } = useSettings()
   const theme = useTheme()
@@ -88,28 +81,27 @@ const LoginV2 = ({ mode }) => {
 
   const handleClickShowPassword = () => setIsPasswordShown(show => !show)
 
-  const handleLogin = async e => {
-    e.preventDefault()
+  const handleLogin = async data => {
     setError('')
 
     const res = await fetch('/api/login', {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ username, password })
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ username: data.username, password: data.password })
     })
 
     if (res.ok) {
       const data = await res.json()
+
+      localStorage.setItem('user', JSON.stringify(data.user))
       router.push(`/${data.user.role}`)
     } else {
-      setError('Invalid username or password')
+      setFormError('password', { message: 'Invalid username or password' })
     }
   }
 
   return (
-    <div className='flex bs-full justify-center'>
+    <div className='flex justify-center bs-full'>
       <div
         className={classnames(
           'flex bs-full items-center justify-center flex-1 min-bs-[100dvh] relative p-6 max-md:hidden',
@@ -139,25 +131,23 @@ const LoginV2 = ({ mode }) => {
           <form
             noValidate
             autoComplete='off'
-            onSubmit={handleLogin}
+            onSubmit={handleSubmit(handleLogin)}
             className='flex flex-col gap-5'
           >
-            <CustomTextField 
-              autoFocus 
-              fullWidth 
-              label='Username' 
-              placeholder='Enter your username' 
-              value={username}
-              onChange={e => setUsername(e.target.value)}
+            <CustomTextField
+              autoFocus
+              fullWidth
+              label='Username'
+              placeholder='Enter your username'
+              {...register('username', { required: 'Username is required' })}
             />
+            {errors.username && <Typography color='error'>{errors.username.message}</Typography>}
             <CustomTextField
               fullWidth
               label='Password'
               placeholder='············'
               id='outlined-adornment-password'
               type={isPasswordShown ? 'text' : 'password'}
-              value={password}
-              onChange={e => setPassword(e.target.value)}
               slotProps={{
                 input: {
                   endAdornment: (
@@ -169,9 +159,10 @@ const LoginV2 = ({ mode }) => {
                   )
                 }
               }}
+              {...register('password', { required: 'Password is required' })}
             />
-            {error && <Typography color='error'>{error}</Typography>}
-            <div className='flex justify-between items-center gap-x-3 gap-y-1 flex-wrap'>
+            {errors.password && <Typography color='error'>{errors.password.message}</Typography>}
+            <div className='flex flex-wrap items-center justify-between gap-x-3 gap-y-1'>
               <FormControlLabel control={<Checkbox />} label='Remember me' />
               <Typography className='text-end' color='primary.main' component={Link}>
                 Forgot password?
@@ -180,7 +171,7 @@ const LoginV2 = ({ mode }) => {
             <Button fullWidth variant='contained' type='submit'>
               Login
             </Button>
-            <div className='flex justify-center items-center flex-wrap gap-2'>
+            <div className='flex flex-wrap items-center justify-center gap-2'>
               <Typography>New on our platform?</Typography>
               <Typography component={Link} color='primary.main'>
                 Create an account

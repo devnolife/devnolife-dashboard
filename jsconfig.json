@@ -42,7 +42,10 @@
       ],
       "@views/*": [
         "./src/views/*"
-      ]
+      ],
+      "@graphql/*": [
+        "./src/graphql/*"
+      ],
     }
   },
   "include": [
