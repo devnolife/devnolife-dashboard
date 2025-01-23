@@ -46,16 +46,18 @@ const VerticalMenu = ({ scrollMenu }) => {
   const renderMenuItems = () => {
     const menuItems = []
 
+    console.log("🚀 ~ renderMenuItems ~ menuItems:", menuItems)
+
     if (role === 'admin') {
-      menuItems.push({ href: '/admin', icon: 'tabler-shield', label: 'Admin' })
-    } else if (role === 'student') {
-      menuItems.push({ href: '/student', icon: 'tabler-school', label: 'Student' })
-    } else if (role === 'faculty') {
-      menuItems.push({ href: '/faculty', icon: 'tabler-teacher', label: 'Faculty' })
-    } else if (role === 'study-program') {
-      menuItems.push({ href: '/study-program', icon: 'tabler-book', label: 'Study Program' })
-    } else if (role === 'administration') {
-      menuItems.push({ href: '/administration', icon: 'tabler-building', label: 'Administration' })
+      menuItems.push({ href: '/admin', icon: 'tabler-shield', label: 'Dashboard' })
+    } else if (role === 'mahasiswa') {
+      menuItems.push({ href: '/mahasiswa', icon: 'tabler-school', label: 'Dashboard' })
+    } else if (role === 'fakultas') {
+      menuItems.push({ href: '/fakultas', icon: 'tabler-teacher', label: 'Dashboard' })
+    } else if (role === 'prodi') {
+      menuItems.push({ href: '/prdi', icon: 'tabler-book', label: 'Dashboard' })
+    } else if (role === 'tatausaha') {
+      menuItems.push({ href: '/tatausaha', icon: 'tabler-building', label: 'Dashboard' })
     }
 
     return menuItems.map(item => (

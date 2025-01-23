@@ -6,10 +6,10 @@ export async function POST(req) {
 
     const users = {
       admin: { username: 'admin', password: 'admin123' },
-      student: { username: 'mahasiswa', password: 'mahasiswa123' },
-      faculty: { username: 'fakultas', password: 'fakultas123' },
-      studyProgram: { username: 'prodi', password: 'prodi123' },
-      administration: { username: 'tatausaha', password: 'tatausaha123' }
+      mahasiswa: { username: 'mahasiswa', password: 'mahasiswa123' },
+      fakultas: { username: 'fakultas', password: 'fakultas123' },
+      fakultas: { username: 'fakultas', password: 'prodi123' },
+      tatausaha: { username: 'tatausaha', password: 'tatausaha123' }
     }
 
     let foundRole = null

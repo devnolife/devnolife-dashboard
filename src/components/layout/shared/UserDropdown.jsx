@@ -61,6 +61,8 @@ const UserDropdown = () => {
   }
 
   const handleUserLogout = async () => {
+    localStorage.removeItem('user')
+
     // Redirect to login page
     router.push('/login')
   }
@@ -100,9 +102,9 @@ const UserDropdown = () => {
             <Paper className={settings.skin === 'bordered' ? 'border shadow-none' : 'shadow-lg'}>
               <ClickAwayListener onClickAway={e => handleDropdownClose(e)}>
                 <MenuList>
-                  <div className='flex items-center plb-2 pli-6 gap-2' tabIndex={-1}>
+                  <div className='flex items-center gap-2 plb-2 pli-6' tabIndex={-1}>
                     <Avatar alt='John Doe' src='/images/avatars/1.png' />
-                    <div className='flex items-start flex-col'>
+                    <div className='flex flex-col items-start'>
                       <Typography className='font-medium' color='text.primary'>
                         John Doe
                       </Typography>
@@ -110,19 +112,19 @@ const UserDropdown = () => {
                     </div>
                   </div>
                   <Divider className='mlb-1' />
-                  <MenuItem className='mli-2 gap-3' onClick={e => handleDropdownClose(e)}>
+                  <MenuItem className='gap-3 mli-2' onClick={e => handleDropdownClose(e)}>
                     <i className='tabler-user' />
                     <Typography color='text.primary'>My Profile</Typography>
                   </MenuItem>
-                  <MenuItem className='mli-2 gap-3' onClick={e => handleDropdownClose(e)}>
+                  <MenuItem className='gap-3 mli-2' onClick={e => handleDropdownClose(e)}>
                     <i className='tabler-settings' />
                     <Typography color='text.primary'>Settings</Typography>
                   </MenuItem>
-                  <MenuItem className='mli-2 gap-3' onClick={e => handleDropdownClose(e)}>
+                  <MenuItem className='gap-3 mli-2' onClick={e => handleDropdownClose(e)}>
                     <i className='tabler-currency-dollar' />
                     <Typography color='text.primary'>Pricing</Typography>
                   </MenuItem>
-                  <MenuItem className='mli-2 gap-3' onClick={e => handleDropdownClose(e)}>
+                  <MenuItem className='gap-3 mli-2' onClick={e => handleDropdownClose(e)}>
                     <i className='tabler-help-circle' />
                     <Typography color='text.primary'>FAQ</Typography>
                   </MenuItem>
