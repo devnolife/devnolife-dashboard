@@ -1,4 +1,6 @@
-const StudentPage = () => {
+import React from 'react'
+
+const Page = () => {
   return (
     <div>
       <h1>Welcome, Student!</h1>
@@ -7,4 +9,4 @@ const StudentPage = () => {
   )
 }
 
-export default StudentPage
+export default Page

@@ -1,16 +1,13 @@
-// MUI Imports
+
 import InitColorSchemeScript from '@mui/material/InitColorSchemeScript'
 
-// Third-party Imports
 import 'react-perfect-scrollbar/dist/css/styles.css'
 
-// Util Imports
 import { getSystemMode } from '@core/utils/serverHelpers'
 
-// Style Imports
+
 import '@/app/globals.css'
 
-// Generated Icon CSS Imports
 import '@assets/iconify-icons/generated-icons.css'
 
 export const metadata = {
@@ -19,10 +16,11 @@ export const metadata = {
     'Vuexy - MUI Next.js Admin Dashboard Template - is the most developer friendly & highly customizable Admin Dashboard Template based on MUI v5.'
 }
 
+
 const RootLayout = async props => {
   const { children } = props
 
-  // Vars
+
   const systemMode = await getSystemMode()
   const direction = 'ltr'
 

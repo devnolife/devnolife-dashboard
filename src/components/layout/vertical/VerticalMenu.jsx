@@ -46,18 +46,30 @@ const VerticalMenu = ({ scrollMenu }) => {
   const renderMenuItems = () => {
     const menuItems = []
 
-    console.log("🚀 ~ renderMenuItems ~ menuItems:", menuItems)
-
-    if (role === 'admin') {
-      menuItems.push({ href: '/admin', icon: 'tabler-shield', label: 'Dashboard' })
-    } else if (role === 'mahasiswa') {
-      menuItems.push({ href: '/mahasiswa', icon: 'tabler-school', label: 'Dashboard' })
-    } else if (role === 'fakultas') {
-      menuItems.push({ href: '/fakultas', icon: 'tabler-teacher', label: 'Dashboard' })
-    } else if (role === 'prodi') {
-      menuItems.push({ href: '/prdi', icon: 'tabler-book', label: 'Dashboard' })
-    } else if (role === 'tatausaha') {
-      menuItems.push({ href: '/tatausaha', icon: 'tabler-building', label: 'Dashboard' })
+    switch (role) {
+      case 'admin':
+        menuItems.push({ href: '/admin', icon: 'tabler-shield', label: 'Dashboard' })
+        break
+      case 'mahasiswa':
+        menuItems.push({ href: '/mahasiswa', icon: 'tabler-school', label: 'Dashboard' })
+        menuItems.push({ href: '/mahasiswa/pengajuan', icon: 'tabler-file', label: 'Pengajuan' })
+        menuItems.push({ href: '/mahasiswa/akademik', icon: 'tabler-book', label: 'Akademik' })
+        menuItems.push({ href: '/mahasiswa/kkp', icon: 'tabler-briefcase', label: 'Kuliah Kerja Profesi' })
+        menuItems.push({ href: '/mahasiswa/ujian', icon: 'tabler-checklist', label: 'Ujian' })
+        menuItems.push({ href: '/mahasiswa/pembayaran', icon: 'tabler-credit-card', label: 'Pembayaran' })
+        menuItems.push({ href: '/mahasiswa/laboratorium', icon: 'tabler-flask', label: 'Laboratorium' })
+        break
+      case 'fakultas':
+        menuItems.push({ href: '/fakultas', icon: 'tabler-teacher', label: 'Dashboard' })
+        break
+      case 'prodi':
+        menuItems.push({ href: '/prdi', icon: 'tabler-book', label: 'Dashboard' })
+        break
+      case 'tatausaha':
+        menuItems.push({ href: '/tatausaha', icon: 'tabler-building', label: 'Dashboard' })
+        break
+      default:
+        break
     }
 
     return menuItems.map(item => (
