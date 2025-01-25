@@ -61,7 +61,7 @@ const UserDropdown = () => {
   }
 
   const handleUserLogout = async () => {
-    localStorage.removeItem('user')
+    // localStorage.removeItem('user')
 
     // Redirect to login page
     router.push('/login')

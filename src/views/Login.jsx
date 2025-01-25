@@ -93,7 +93,7 @@ const LoginV2 = ({ mode }) => {
     if (res.ok) {
       const data = await res.json()
 
-      localStorage.setItem('user', JSON.stringify(data.user))
+      // localStorage.setItem('user', JSON.stringify(data.user))
       router.push(`/${data.user.role}`)
     } else {
       setFormError('password', { message: 'Invalid username or password' })

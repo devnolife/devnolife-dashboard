@@ -1,22 +1,37 @@
+import { gql } from "@apollo/client"
 
-export const GET_ALL_KKP_SYARAT = `
-  query GetAllKkpSyarat {
-    getAllKkpSyarat {
+export const GET_ALL_KKP = gql`
+  query GetAllKkp {
+    getAllKkp {
       id
-      nama
-      is_upload_file
-      is_activated
+      judul
+      nim
       prodi_kode_prodi
+      dosen_pembimbing
+      dosen_penguji
+      tanggal_seminar
+      tanggal_sidang
+      status
+      created_at
+      updated_at
     }
   }
 `;
 
-export const GET_MAHASISWA = `
-  query Mahasiswa($nim: String!) {
-    mahasiswa(nim: $nim) {
+export const GET_ALL_KKP_BY_NIM = gql`
+  query GetAllKkpByNim($nim: String!) {
+    getAllKkpByNim(nim: $nim) {
+      id
+      judul
       nim
-      kodeProdi
-      nama
+      prodi_kode_prodi
+      dosen_pembimbing
+      dosen_penguji
+      tanggal_seminar
+      tanggal_sidang
+      status
+      created_at
+      updated_at
     }
   }
 `;

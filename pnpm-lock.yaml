@@ -38,6 +38,9 @@ importers:
       classnames:
         specifier: 2.5.1
         version: 2.5.1
+      graphql-request:
+        specifier: ^7.1.2
+        version: 7.1.2(graphql@16.10.0)
       next:
         specifier: 15.1.2
         version: 15.1.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -1718,6 +1721,11 @@ packages:
 
   graphemer@1.4.0:
     resolution: {integrity: sha512-EtKwoO6kxCL9WO5xipiHTZlSzBm7WLT627TqC/uVRd0HKmq8NXyebnNYxDoBi7wt8eTWrUrKXCOVaFq9x1kgag==}
+
+  graphql-request@7.1.2:
+    resolution: {integrity: sha512-+XE3iuC55C2di5ZUrB4pjgwe+nIQBuXVIK9J98wrVwojzDW3GMdSBZfxUk8l4j9TieIpjpggclxhNEU9ebGF8w==}
+    peerDependencies:
+      graphql: 14 - 16
 
   graphql-tag@2.12.6:
     resolution: {integrity: sha512-FdSNcu2QQcWnM2VNvSCCDCVS5PpPqpzgFT8+GXzqJuoDd0CBncxCY278u4mhRO7tMgo2JjgJA5aZ+nWSQ/Z+xg==}
@@ -4795,6 +4803,11 @@ snapshots:
   graceful-fs@4.2.11: {}
 
   graphemer@1.4.0: {}
+
+  graphql-request@7.1.2(graphql@16.10.0):
+    dependencies:
+      '@graphql-typed-document-node/core': 3.2.0(graphql@16.10.0)
+      graphql: 16.10.0
 
   graphql-tag@2.12.6(graphql@16.10.0):
     dependencies:
