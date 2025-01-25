@@ -7,9 +7,11 @@ import {
   InMemoryCache,
 } from "@apollo/experimental-nextjs-app-support";
 
+
+
 function makeClient() {
   const httpLink = new HttpLink({
-    uri: "https://spacex-production.up.railway.app/",
+    uri: `${process.env.NEXT_PUBLIC_GRAPHQL_URL}`,
     fetchOptions: { cache: "no-store" },
   });
 
