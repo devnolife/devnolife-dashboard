@@ -5,7 +5,6 @@ import 'react-perfect-scrollbar/dist/css/styles.css'
 
 import { getSystemMode } from '@core/utils/serverHelpers'
 
-
 import '@/app/globals.css'
 
 import '@assets/iconify-icons/generated-icons.css'
