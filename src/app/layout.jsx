@@ -4,6 +4,7 @@ import 'react-perfect-scrollbar/dist/css/styles.css'
 
 import { ApolloWrapper } from './ApolloWrapper'
 import { getSystemMode } from '@core/utils/serverHelpers'
+import { formatDateToIndonesian } from '@/utils/dateUtils';
 
 import '@/app/globals.css'
 
@@ -21,6 +22,8 @@ const RootLayout = async props => {
 
   const systemMode = await getSystemMode()
   const direction = 'ltr'
+
+  const formattedDate = formatDateToIndonesian(new Date());
 
   return (
     <html id='__next' lang='en' dir={direction} suppressHydrationWarning>
