@@ -11,24 +11,28 @@ const dataFakultas = [
     ikonAvatar: 'tabler-icon tabler-mail',
     warna: 'primary',
     isPengajuan: true,
+    notif: 3,
   },
   {
     judul: 'Pengajuan Lokasi KKP',
     ikonAvatar: 'tabler-icon tabler-map-pin',
     warna: 'secondary',
     isPengajuan: true,
+    notif: 1,
   },
   {
     judul: 'Pendaftaran Seminar',
     ikonAvatar: 'tabler-icon tabler-presentation',
     warna: 'success',
     isPengajuan: true,
+    notif: null,
   },
   {
     judul: 'Bimbingan Akademik',
     ikonAvatar: 'tabler-icon tabler-user-check',
     warna: 'error',
     isPengajuan: false,
+    notif: null,
   },
 ];
 

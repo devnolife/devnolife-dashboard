@@ -23,7 +23,7 @@ const KalenderAkademik = ({ data }) => {
   return (
     <Card
       sx={{
-        p: 2,
+        p: 3,
         borderRadius: '16px',
         boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
       }}
@@ -34,7 +34,7 @@ const KalenderAkademik = ({ data }) => {
             Kalender Akademik
           </Typography>
         }
-        sx={{ textAlign: 'start', pb: 2 }}
+        sx={{ textAlign: 'center', pb: 3 }}
       />
       <Box
         sx={{
@@ -64,7 +64,6 @@ const KalenderAkademik = ({ data }) => {
         sx={{
           maxHeight: '300px',
           overflowY: 'auto',
-          backgroundColor: '#f9f9f9',
           borderRadius: '8px',
           p: 1,
         }}
@@ -79,9 +78,6 @@ const KalenderAkademik = ({ data }) => {
                 mb: 1,
                 p: 1,
                 borderRadius: '8px',
-                '&:hover': {
-                  backgroundColor: '#f0f0f0',
-                },
               }}
             >
               <TimelineDot color="success" sx={{ mr: 2 }} />

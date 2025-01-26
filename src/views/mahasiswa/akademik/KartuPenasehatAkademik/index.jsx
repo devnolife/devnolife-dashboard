@@ -1,17 +1,20 @@
 'use client'
+import { useState } from 'react'
 
-import Grid from '@mui/material/Grid'
 import CardContent from '@mui/material/CardContent'
 import Select from '@mui/material/Select'
 import MenuItem from '@mui/material/MenuItem'
 import Button from '@mui/material/Button'
 import './print.css'
 
-import { Card } from '@mui/material'
+import { Box, Card } from '@mui/material'
+
 
 import PreviewCard from './PreviewCard'
 
 const Preview = ({ mahasiswa, data, semester, onSemesterChange, signature }) => {
+  const [detail, setDetail] = useState(false)
+
   const handlePrint = () => {
     console.log(`Printing for ${semester}`)
     window.print()
@@ -22,8 +25,13 @@ const Preview = ({ mahasiswa, data, semester, onSemesterChange, signature }) => 
     alert(`Download initiated for ${semester}`)
   }
 
+  const handleDetail = () => {
+    setDetail(!detail)
+    console.log(`Detail for ${semester}`)
+  }
+
   return (
-    <Card className="flex flex-col">
+    <Box className="flex flex-col">
       <CardContent>
         <div className="flex items-center justify-between">
           <Select
@@ -44,6 +52,14 @@ const Preview = ({ mahasiswa, data, semester, onSemesterChange, signature }) => 
           </Select>
 
           <div className="flex gap-2">
+            <Button
+              onClick={handleDetail}
+              variant="contained"
+              color="success"
+              sx={{ textTransform: 'capitalize' }}
+            >
+              {detail ? 'Ringkas' : 'Lengkap'}
+            </Button>
             <Button
               onClick={handlePrint}
               variant="contained"
@@ -67,8 +83,9 @@ const Preview = ({ mahasiswa, data, semester, onSemesterChange, signature }) => 
         data={data}
         signature={signature}
         mahasiswa={mahasiswa}
+        detail={detail}
       />
-    </Card >
+    </Box >
   )
 }
 
