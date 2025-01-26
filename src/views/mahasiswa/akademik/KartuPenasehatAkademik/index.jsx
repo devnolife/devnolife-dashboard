@@ -7,6 +7,8 @@ import MenuItem from '@mui/material/MenuItem'
 import Button from '@mui/material/Button'
 import './print.css'
 
+import { Card } from '@mui/material'
+
 import PreviewCard from './PreviewCard'
 
 const Preview = ({ mahasiswa, data, semester, onSemesterChange, signature }) => {
@@ -21,9 +23,9 @@ const Preview = ({ mahasiswa, data, semester, onSemesterChange, signature }) => 
   }
 
   return (
-    <Grid>
-      <CardContent className="flex flex-col gap-1">
-        <div className="flex items-center justify-between mb-4">
+    <Card className="flex flex-col">
+      <CardContent>
+        <div className="flex items-center justify-between">
           <Select
             size="small"
             value={semester}
@@ -60,13 +62,13 @@ const Preview = ({ mahasiswa, data, semester, onSemesterChange, signature }) => 
             </Button>
           </div>
         </div>
-        <PreviewCard
-          data={data}
-          signature={signature}
-          mahasiswa={mahasiswa}
-        />
       </CardContent>
-    </Grid>
+      <PreviewCard
+        data={data}
+        signature={signature}
+        mahasiswa={mahasiswa}
+      />
+    </Card >
   )
 }
 

@@ -95,7 +95,7 @@ const VerticalMenu = ({ scrollMenu }) => {
         popoutMenuOffset={{ mainAxis: 23 }}
         menuItemStyles={menuItemStyles(verticalNavOptions, theme)}
         renderExpandIcon={({ open }) => <RenderExpandIcon open={open} transitionDuration={transitionDuration} />}
-        renderExpandedMenuItemIcon={{ icon: <i className='text-xs tabler-circle' /> }}
+        renderExpandedMenuItemIcon={() => <i className='text-xs tabler-circle' />}
         menuSectionStyles={menuSectionStyles(verticalNavOptions, theme)}
       >
         {renderMenuItems()}

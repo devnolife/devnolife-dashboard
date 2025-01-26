@@ -4,6 +4,7 @@ import { Card, CardContent, Chip, Typography, Button } from '@mui/material';
 import CustomAvatar from '@/@core/components/mui/Avatar';
 
 const CardAkademik = ({ data }) => {
+  if (!data) return null;
 
   return (
     <Card style={{ flexGrow: 1 }}>

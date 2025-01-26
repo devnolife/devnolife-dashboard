@@ -35,14 +35,14 @@ const dataFakultas = [
 const Page = () => {
   return (
     <>
-      <Grid container spacing={3} alignItems="stretch">
+      <Grid container spacing={3} wrap="nowrap">
         {dataFakultas.map((data, index) => (
-          <Grid item xs={12} md={6} key={index}>
+          <Grid item xs={12} sm={12} md={12} key={index}>
             <CardAkademik data={data} />
           </Grid>
         ))}
       </Grid>
-      <Grid container spacing={3} sx={{ marginTop: 3 }}>
+      {/* <Grid container spacing={3} alignItems="stretch" sx={{ marginTop: 3 }}>
         <Grid item xs={12} md={8}>
           <PenasehatAkademikCard />
         </Grid>
@@ -51,7 +51,7 @@ const Page = () => {
             <KalenderAkademik />
           </Card>
         </Grid>
-      </Grid>
+      </Grid> */}
     </>
   );
 };
