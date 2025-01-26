@@ -32,28 +32,32 @@ const dataFakultas = [
   },
 ];
 
+const events = [
+  { date: new Date('2025-01-30'), name: 'Final Semester' },
+  { date: new Date('2023-10-20'), name: 'Sports Day' },
+];
+
 const Page = () => {
   return (
     <>
-      <Grid container spacing={3} wrap="nowrap">
-        {dataFakultas.map((data, index) => (
-          <Grid item xs={12} sm={12} md={12} key={index}>
+      <Grid container spacing={6} wrap="nowrap">
+        {dataFakultas?.map((data, index) => (
+          <Grid size={{ xs: 12, md: 6 }} key={index}>
             <CardAkademik data={data} />
           </Grid>
         ))}
       </Grid>
-      {/* <Grid container spacing={3} alignItems="stretch" sx={{ marginTop: 3 }}>
-        <Grid item xs={12} md={8}>
+      <Grid container spacing={3} alignItems="stretch" sx={{ marginTop: 3 }}>
+        <Grid size={{ xs: 12, md: 8 }}>
           <PenasehatAkademikCard />
         </Grid>
-        <Grid item xs={12} md={4}>
-          <Card>
-            <KalenderAkademik />
-          </Card>
+        <Grid size={{ xs: 12, md: 4 }}>
+          <KalenderAkademik data={events} />
         </Grid>
-      </Grid> */}
+      </Grid>
     </>
   );
 };
 
 export default Page;
+

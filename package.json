@@ -25,6 +25,7 @@
     "@mui/material-nextjs": "6.2.1",
     "@tanstack/react-table": "^8.20.6",
     "classnames": "2.5.1",
+    "dayjs": "^1.11.13",
     "dotenv-cli": "^8.0.0",
     "graphql-request": "^7.1.2",
     "next": "15.1.2",
