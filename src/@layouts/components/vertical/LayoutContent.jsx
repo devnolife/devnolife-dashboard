@@ -27,6 +27,7 @@ const LayoutContent = ({ children }) => {
         [`${verticalLayoutClasses.contentCompact} is-full`]: contentCompact,
         [verticalLayoutClasses.contentWide]: contentWide
       })}
+      data-skin={settings.skin.toString()}
     >
       {children}
     </StyledMain>

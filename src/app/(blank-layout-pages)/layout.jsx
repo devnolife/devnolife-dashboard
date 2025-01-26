@@ -1,4 +1,3 @@
-// Component Imports
 import Providers from '@components/Providers'
 import BlankLayout from '@layouts/BlankLayout'
 
@@ -14,7 +13,7 @@ const Layout = async props => {
 
   return (
     <Providers direction={direction}>
-      <BlankLayout systemMode={systemMode}>{children}</BlankLayout>
+      <BlankLayout systemMode={systemMode} data-skin={settings.skin.toString()}>{children}</BlankLayout>
     </Providers>
   )
 }

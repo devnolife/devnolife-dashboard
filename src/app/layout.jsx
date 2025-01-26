@@ -24,7 +24,7 @@ const RootLayout = async props => {
 
   return (
     <html id='__next' lang='en' dir={direction} suppressHydrationWarning>
-      <body className='flex flex-col flex-auto is-full min-bs-full'>
+      <body className='flex flex-col flex-auto is-full min-bs-full' data-skin={settings.skin.toString()}>
         <InitColorSchemeScript attribute='data' defaultMode={systemMode} />
         <ApolloWrapper>
           {children}

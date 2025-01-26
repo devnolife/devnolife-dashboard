@@ -1,4 +1,3 @@
-// MUI Imports
 import Button from '@mui/material/Button'
 
 // Layout Imports
@@ -31,12 +30,12 @@ const Layout = async props => {
       <LayoutWrapper
         systemMode={systemMode}
         verticalLayout={
-          <VerticalLayout navigation={<Navigation mode={mode} />} navbar={<Navbar />} footer={<VerticalFooter />}>
+          <VerticalLayout navigation={<Navigation mode={mode} />} navbar={<Navbar />} footer={<VerticalFooter />} data-skin={settings.skin.toString()}>
             {children}
           </VerticalLayout>
         }
         horizontalLayout={
-          <HorizontalLayout header={<Header />} footer={<HorizontalFooter />}>
+          <HorizontalLayout header={<Header />} footer={<HorizontalFooter />} data-skin={settings.skin.toString()}>
             {children}
           </HorizontalLayout>
         }

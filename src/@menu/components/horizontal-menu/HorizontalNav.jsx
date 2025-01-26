@@ -79,7 +79,7 @@ const HorizontalNav = props => {
 
   // If switchToVertical & hideMenu are false, then render the HorizontalNav component
   return (
-    <StyledHorizontalNav customStyles={customStyles} className={horizontalMenuClasses}>
+    <StyledHorizontalNav customStyles={customStyles} className={horizontalMenuClasses} data-skin={settings.skin.toString()}>
       {children}
     </StyledHorizontalNav>
   )

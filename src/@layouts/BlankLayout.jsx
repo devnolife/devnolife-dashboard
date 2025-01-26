@@ -20,7 +20,7 @@ const BlankLayout = props => {
   useLayoutInit(systemMode)
 
   return (
-    <div className={classnames(blankLayoutClasses.root, 'is-full bs-full')} data-skin={settings.skin}>
+    <div className={classnames(blankLayoutClasses.root, 'is-full bs-full')} data-skin={settings.skin.toString()}>
       {children}
     </div>
   )

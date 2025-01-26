@@ -1,4 +1,3 @@
-// Third-party Imports
 import classnames from 'classnames'
 
 // Util Imports
@@ -6,7 +5,7 @@ import { horizontalLayoutClasses } from '@layouts/utils/layoutClasses'
 
 const Navbar = ({ children }) => {
   return (
-    <div className={classnames(horizontalLayoutClasses.navbar, 'flex items-center justify-between is-full')}>
+    <div className={classnames(horizontalLayoutClasses.navbar, 'flex items-center justify-between is-full')} data-skin={settings.skin.toString()}>
       {children}
     </div>
   )

@@ -31,6 +31,7 @@ const LayoutContent = ({ children }) => {
         [horizontalLayoutClasses.contentWide]: contentWide
       })}
       style={{ padding: themeConfig.layoutPadding }}
+      data-skin={settings.skin.toString()}
     >
       {children}
     </StyledMain>

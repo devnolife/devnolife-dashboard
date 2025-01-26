@@ -45,6 +45,7 @@ const Header = props => {
         [horizontalLayoutClasses.headerContentCompact]: headerContentCompact,
         [horizontalLayoutClasses.headerContentWide]: headerContentWide
       })}
+      data-skin={settings.skin.toString()}
     >
       {children}
     </StyledHeader>

@@ -161,6 +161,7 @@ const VerticalNav = props => {
         },
         className
       )}
+      data-skin={settings.skin.toString()}
       {...rest}
     >
       {/* VerticalNav Container for hover effect when verticalNav is collapsed */}

@@ -1,4 +1,3 @@
-// Third-party Imports
 import classnames from 'classnames'
 
 // Component Imports
@@ -15,7 +14,7 @@ const VerticalLayout = props => {
   const { navbar, footer, navigation, children } = props
 
   return (
-    <div className={classnames(verticalLayoutClasses.root, 'flex flex-auto')}>
+    <div className={classnames(verticalLayoutClasses.root, 'flex flex-auto')} data-skin={settings.skin.toString()}>
       {navigation || null}
       <StyledContentWrapper
         className={classnames(verticalLayoutClasses.contentWrapper, 'flex flex-col min-is-0 is-full')}

@@ -58,6 +58,7 @@ const Navbar = props => {
         [verticalLayoutClasses.headerContentWide]: headerContentWide,
         scrolled: trigger
       })}
+      data-skin={settings.skin.toString()}
     >
       <div className={classnames(verticalLayoutClasses.navbar, 'flex bs-full')}>{children}</div>
     </StyledHeader>

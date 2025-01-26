@@ -39,7 +39,7 @@ const Footer = props => {
         [horizontalLayoutClasses.footerContentWide]: footerContentWide
       })}
     >
-      <div className={horizontalLayoutClasses.footerContentWrapper}>{children}</div>
+      <div className={horizontalLayoutClasses.footerContentWrapper} data-skin={settings.skin.toString()}>{children}</div>
     </StyledFooter>
   )
 }
