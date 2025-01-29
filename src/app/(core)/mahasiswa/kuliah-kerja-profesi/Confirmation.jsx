@@ -1,6 +1,6 @@
 import { Grid } from "@mui/material";
 
-import ConfirmationPages from "@/app/(core)/mahasiswa/kuliah-kerja-profesi/Confirmation";
+import ConfirmationPages from "@/views/mahasiswa/kuliah-kerja-profesi/Confirmation";
 
 const locationData = {
   name: 'Warkop Kopi Kenangan',

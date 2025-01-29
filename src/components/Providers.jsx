@@ -1,24 +1,28 @@
-import React from 'react'
-import { NextAuthProvider } from '@/contexts/nextAuthProvider'
+import { ApolloProvider } from '@apollo/client';
+
+
+// Context Imports
 import { VerticalNavProvider } from '@menu/contexts/verticalNavContext'
 import { SettingsProvider } from '@core/contexts/settingsContext'
 import ThemeProvider from '@components/theme'
-import themeConfig from '@configs/themeConfig'
-import AppReactToastify from '@/libs/styles/AppReactToastify'
-import { getDemoName, getMode, getSettingsFromCookie, getSystemMode } from '@core/utils/serverHelpers'
-const Providers = props => {
+
+// Util Imports
+import { getMode, getSettingsFromCookie, getSystemMode } from '@core/utils/serverHelpers'
+
+const Providers = async props => {
+  // Props
   const { children, direction } = props
-  const mode = getMode()
-  const settingsCookie = getSettingsFromCookie()
-  const demoName = getDemoName()
-  const systemMode = getSystemMode()
+
+  // Vars
+  const mode = await getMode()
+  const settingsCookie = await getSettingsFromCookie()
+  const systemMode = await getSystemMode()
 
   return (
     <VerticalNavProvider>
-      <SettingsProvider settingsCookie={settingsCookie} mode={mode} demoName={demoName}>
+      <SettingsProvider settingsCookie={settingsCookie} mode={mode}>
         <ThemeProvider direction={direction} systemMode={systemMode}>
           {children}
-          <AppReactToastify position={themeConfig.toastPosition} hideProgressBar />
         </ThemeProvider>
       </SettingsProvider>
     </VerticalNavProvider>

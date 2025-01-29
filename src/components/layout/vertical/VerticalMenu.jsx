@@ -54,7 +54,7 @@ const VerticalMenu = ({ scrollMenu }) => {
         menuItems.push({ href: '/mahasiswa', icon: 'tabler-school', label: 'Dashboard' })
         menuItems.push({ href: '/mahasiswa/pengajuan', icon: 'tabler-file', label: 'Pengajuan' })
         menuItems.push({ href: '/mahasiswa/akademik', icon: 'tabler-book', label: 'Akademik' })
-        menuItems.push({ href: '/mahasiswa/kkp', icon: 'tabler-briefcase', label: 'Kuliah Kerja Profesi' })
+        menuItems.push({ href: '/mahasiswa/kuliah-kerja-profesi', icon: 'tabler-briefcase', label: 'Kuliah Kerja Profesi' })
         menuItems.push({ href: '/mahasiswa/ujian', icon: 'tabler-checklist', label: 'Ujian' })
         menuItems.push({ href: '/mahasiswa/pembayaran', icon: 'tabler-credit-card', label: 'Pembayaran' })
         menuItems.push({ href: '/mahasiswa/laboratorium', icon: 'tabler-flask', label: 'Laboratorium' })
