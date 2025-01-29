@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react'
 
 import { redirect } from 'next/navigation'
 
-import Preview from '@/views/mahasiswa/akademik/KartuPenasehatAkademik'
+import Preview from '@/views/mahasiswa/akademik/kartu-kontrol'
 
 
 const dataPa = {

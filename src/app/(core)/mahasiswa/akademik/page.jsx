@@ -1,12 +1,14 @@
-import Grid from '@mui/material/Grid2';
-import { Card, CardContent, Chip, Typography, Button } from '@mui/material';
+import dynamic from 'next/dynamic';
 
-import KalenderAkademik from './KalenderAkademik';
-import PenasehatAkademikCard from './PenasehatAkademikCard';
-import CardAkademik from './CardAkademik';
+import Grid from '@mui/material/Grid2';
+
+const KalenderAkademik = dynamic(() => import('@/views/mahasiswa/akademik/kalender/KalenderAkademik'))
+const CardAkademik = dynamic(() => import('@/views/mahasiswa/akademik/quick-actions/CardAkademik'))
+const TabMenu = dynamic(() => import('./TabMenu'))
 
 const dataFakultas = [
   {
+    jenis: 'surat',
     judul: 'Pengajuan Surat',
     ikonAvatar: 'tabler-icon tabler-mail',
     warna: 'primary',
@@ -19,6 +21,7 @@ const dataFakultas = [
     warna: 'secondary',
     isPengajuan: true,
     notif: 1,
+    jenis: 'pengajuan',
   },
   {
     judul: 'Pendaftaran Seminar',
@@ -26,6 +29,7 @@ const dataFakultas = [
     warna: 'success',
     isPengajuan: true,
     notif: null,
+    jenis: 'pengajuan'
   },
   {
     judul: 'Bimbingan Akademik',
@@ -33,6 +37,7 @@ const dataFakultas = [
     warna: 'error',
     isPengajuan: false,
     notif: null,
+    jenis: 'bimbingan'
   },
 ];
 
@@ -46,14 +51,14 @@ const Page = () => {
     <>
       <Grid container spacing={6} wrap="nowrap">
         {dataFakultas?.map((data, index) => (
-          <Grid size={{ xs: 12, md: 6 }} key={index}>
+          <Grid size={{ xs: 12, md: 6, lg: 3 }} key={index}>
             <CardAkademik data={data} />
           </Grid>
         ))}
       </Grid>
       <Grid container spacing={3} alignItems="stretch" sx={{ marginTop: 3 }}>
         <Grid size={{ xs: 12, md: 8 }}>
-          <PenasehatAkademikCard />
+          <TabMenu />
         </Grid>
         <Grid size={{ xs: 12, md: 4 }}>
           <KalenderAkademik data={events} />
