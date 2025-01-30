@@ -7,20 +7,11 @@ import { useQuery } from '@apollo/client'
 
 
 import {
-  Button,
   Card,
   CardContent,
   Container,
   Grid,
-  Paper,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
   Typography,
-  LinearProgress,
   Chip,
   TextField,
   Box,
@@ -58,7 +49,6 @@ export default function DashboardPage() {
   const [persyaratan, setPersyaratan] = useState([])
   const [open, setOpen] = useState(false)
   const [selectedDetail, setSelectedDetail] = useState(null)
-  const [instansi, setInstansi] = useState([])
   const [instansiApprovals, setInstansiApprovals] = useState([])
   const [activeTab, setActiveTab] = useState('persyaratan')
   const [loading, setLoading] = useState(false)
