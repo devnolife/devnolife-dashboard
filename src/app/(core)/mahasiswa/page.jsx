@@ -104,7 +104,7 @@ const dataPembimbingKKP = [
 ]
 
 
-const Dashhboard = async () => {
+const Dashhboard = () => {
   return (
     <Grid container spacing={3}>
       <Grid item xs={12}>

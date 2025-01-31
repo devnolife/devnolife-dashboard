@@ -5,21 +5,16 @@ import { useEffect, useState } from 'react'
 
 import { useQuery } from '@apollo/client'
 
-
 import {
   Card,
   CardContent,
   Container,
   Grid,
   Typography,
-  Chip,
-  TextField,
   Box,
-  CardMedia,
   CircularProgress
 } from '@mui/material'
 
-import { toast } from 'react-toastify'
 
 import { motion } from 'framer-motion'
 
@@ -51,7 +46,6 @@ export default function DashboardPage() {
   const [selectedDetail, setSelectedDetail] = useState(null)
   const [instansiApprovals, setInstansiApprovals] = useState([])
   const [activeTab, setActiveTab] = useState('persyaratan')
-  const [loading, setLoading] = useState(false)
 
   const [newInstansi, setNewInstansi] = useState({
     nama: '',
@@ -193,13 +187,14 @@ export default function DashboardPage() {
           <Tab icon={<i className='tabler-plus' />} label='Ajukan Instansi Baru' value='ajukan-instansi' />
         </TabList>
         <TabPanel value='persyaratan'>
-          {loading
-            ? (
+          {
+            loadingSyarat ? (
               <Box display="flex" justifyContent="center" alignItems="center" height="100%">
                 <CircularProgress />
               </Box>
-            )
-            : (
+            ) : errorSyarat ? (
+              <Typography color="error">Terjadi kesalahan saat memuat data syarat</Typography>
+            ) : (
               <PersyaratanKKP
                 persyaratan={persyaratan}
                 handleClickOpen={handleClickOpen}
@@ -211,76 +206,25 @@ export default function DashboardPage() {
         <TabPanel value='timeline'>
           <Grid container spacing={4}>
             <Grid item xs={12}>
-              <Card>
-                <CardContent>
-                  <Typography variant="h5" gutterBottom>Timeline KKP</Typography>
-                  <TimelineKKP />
-                </CardContent>
-              </Card>
+              <TimelineKKP />
             </Grid>
           </Grid>
         </TabPanel>
         <TabPanel value='list-instansi'>
-          <Grid container spacing={4}>
-            {instansiApprovals.map((item, idx) => (
-              <Grid item xs={12} sm={6} md={4} key={idx}>
-                <Card
-                  sx={{
-                    height: '100%',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    boxShadow: 3,
-                    borderRadius: 2,
-                    overflow: 'hidden',
-                    transition: 'transform 0.2s',
-                    '&:hover': { transform: 'scale(1.02)' },
-                  }}
-                >
-                  <CardContent sx={{ flexGrow: 1, p: 3 }}>
-                    <Grid
-                      container
-                      spacing={2}
-                      direction="column"
-                      alignItems="center"
-                      justifyContent="center"
-                    >
-                      <Grid item>
-                        <CustomAvatar
-                          color={getRandomColor()}
-                          variant="rounded"
-                          size={90}
-                          skin="light"
-                          sx={{ mb: 2 }}
-                        >
-                          <i className={item.kkpInstansi.logo} />
-                        </CustomAvatar>
-                      </Grid>
-                      <Grid item>
-                        <Chip
-                          variant="outlined"
-                          label={item.kkpInstansi.is_activated ? 'Terdaftar' : 'Tidak Aktif'}
-                          color={item.kkpInstansi.is_activated ? 'success' : 'error'}
-                          size="small"
-                          sx={{ mb: 1 }}
-                        />
-                      </Grid>
-                      <Grid item textAlign="center">
-                        <Typography variant="h6" sx={{ fontWeight: 'bold', mb: 0.5 }}>
-                          {item.kkpInstansi.nama}
-                        </Typography>
-                        <Typography variant="body2" color="text.secondary" sx={{ mb: 0.5 }}>
-                          {item.kkpInstansi.alamat}
-                        </Typography>
-                        <Typography variant="body2" color="text.secondary">
-                          {item.kkpInstansi.keterangan}
-                        </Typography>
-                      </Grid>
-                    </Grid>
-                  </CardContent>
-                </Card>
-              </Grid>
-            ))}
-          </Grid>
+          {
+            loadingInstansi ? (
+              <Box display="flex" justifyContent="center" alignItems="center" height="100%">
+                <CircularProgress />
+              </Box>
+            ) : errorInstansi ? (
+              <Typography color="error">Terjadi kesalahan saat memuat data instansi</Typography>
+            ) : (
+              <ListInstansiKKP
+                instansiApprovals={instansiApprovals}
+                getRandomColor={getRandomColor}
+              />
+            )
+          }
         </TabPanel>
         <TabPanel value='ajukan-instansi'>
           <AjukanInstansi
