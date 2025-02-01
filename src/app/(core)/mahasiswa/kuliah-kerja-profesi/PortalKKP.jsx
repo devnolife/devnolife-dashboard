@@ -32,6 +32,7 @@ import PersyaratanKKP from './PersyaratanKKP'
 import TimelineKKP from './TimelineKKP'
 import ListInstansiKKP from './ListInstansiKKP'
 import AjukanInstansi from './AjukanInstansi'
+import ListHistory from './ListHistory'
 
 const colors = ["primary.light", "secondary", "success", "error.light", "warning", "info"];
 
@@ -181,11 +182,12 @@ export default function DashboardPage() {
 
       <TabContext value={activeTab}>
         <TabList onChange={handleTabChange} variant='fullWidth'>
-          <Tab icon={<i className='tabler-users' />} label='Persyaratan KKP' value='persyaratan' />
-          <Tab icon={<i className='tabler-clock' />} label='Timeline KKP' value='timeline' />
-          <Tab icon={<i className='tabler-building' />} label='List Instansi KKP' value='list-instansi' />
-          <Tab icon={<i className='tabler-plus' />} label='Ajukan Instansi Baru' value='ajukan-instansi' />
+          <Tab icon={<i className='tabler-users' />} label='Persyaratan Pengajuan KKP' value='persyaratan' />
+          <Tab icon={<i className='tabler-clock' />} label='Timeline Pelaksanaan KKP' value='timeline' />
+          <Tab icon={<i className='tabler-building' />} label='Daftar Instansi KKP' value='list-instansi' />
+          <Tab icon={<i className='tabler-history-toggle' />} label='Riwayat Pengajuan KKP' value='history-instansi' />
         </TabList>
+
         <TabPanel value='persyaratan'>
           {
             loadingSyarat ? (
@@ -226,14 +228,10 @@ export default function DashboardPage() {
             )
           }
         </TabPanel>
-        <TabPanel value='ajukan-instansi'>
-          <AjukanInstansi
-            newInstansi={newInstansi}
-            handleInputChange={handleInputChange}
-            handleLogoUpload={handleLogoUpload}
-            handleSubmit={handleSubmit}
-          />
+        <TabPanel value='history-instansi'>
+          <ListHistory />
         </TabPanel>
+
       </TabContext>
 
       <DetailPersyaratan

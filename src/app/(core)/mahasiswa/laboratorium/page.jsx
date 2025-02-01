@@ -73,7 +73,7 @@ const data = [
   }
 ];
 
-const Laboratorium = async () => {
+const Laboratorium = () => {
   const [searchValue, setSearchValue] = useState('')
 
   return (

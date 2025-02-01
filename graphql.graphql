@@ -1,0 +1,560 @@
+"""
+Indicates exactly one field must be supplied and this field must not be `null`.
+"""
+directive @oneOf on INPUT_OBJECT
+
+type Fakultas {
+  id: ID!
+  status: String
+  kode_fakultas: String
+  nama_fakultas: String
+  nama_fakultas_eng: String
+  nama_alias: String
+  dekan: String
+  prodi: [Prodi!]
+}
+
+type Prodi {
+  id: ID!
+  kode_fakultas: String!
+  kode_prodi: String!
+  nama_prodi: String!
+  nama_prodi_eng: String
+  gelar_pendek: String
+  gelar_panjang: String
+  gelar_eng: String
+  total_sks_lulus: Float
+  nidn_ketua_prodi: String
+  fakultas: Fakultas
+  mahasiswa: [Mahasiswa!]
+}
+
+type Mahasiswa {
+  nim: ID!
+  nama: String
+  prodi_kode_prodi: String
+  is_activated: Boolean
+  created_by: String
+  updated_by: String
+  created_at: Date
+  updated_at: Date
+  last_sync: Date
+  keterangan: String
+  prodi: Prodi
+}
+
+type KkpMahasiswa {
+  id: ID!
+  mahasiswa_nim: String!
+  keterangan: String
+  created_by: String
+  updated_by: String
+  created_at: Date!
+  updated_at: Date!
+  mahasiswa: Mahasiswa!
+  syarat: [KkpMahasiswaSyarat!]
+}
+
+type KkpSyarat {
+  id: ID!
+  prodi_kode_prodi: String!
+  nama: String!
+  logo: String
+  url_check: String
+  response_should_be: String
+  is_upload_file: Boolean!
+  is_activated: Boolean!
+  is_deleted: Boolean!
+  created_by: String
+  updated_by: String
+  created_at: Date!
+  updated_at: Date!
+  KkpMahasiswaSyarat: [KkpMahasiswaSyarat!]
+}
+
+type KkpMahasiswaSyarat {
+  id: ID!
+  kkp_mahasiswa_id: String!
+  kkp_syarat_id: String!
+  created_by: String
+  updated_by: String
+  created_at: Date!
+  updated_at: Date!
+  kkpMahasiswa: KkpMahasiswa!
+  kkpSyarat: KkpSyarat!
+  kelengkapan: [KkpMahasiswaSyaratKelengkapan!]
+}
+
+type KkpMahasiswaSyaratKelengkapan {
+  id: ID!
+  kkp_mahasiswa_syarat_id: String!
+  uploaded_file_id: String
+  get_response: JSONObject
+  get_approved: Boolean!
+  keterangan: String
+  created_by: String
+  updated_by: String
+  created_at: Date!
+  updated_at: Date!
+  kkpMahasiswaSyarat: KkpMahasiswaSyarat!
+  approvals: [KkpMahasiswaSyaratKelengkapanApproval!]
+}
+
+"""
+The `JSONObject` scalar type represents JSON objects as specified by [ECMA-404
+](http: //www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
+"""
+scalar JSONObject
+
+type KkpMahasiswaSyaratKelengkapanApproval {
+  id: ID!
+  kkp_mahasiswa_syarat_kelengkapan_id: String!
+  approval_status_id: String!
+  keterangan: String
+  created_by: String
+  updated_by: String
+  created_at: Date!
+  updated_at: Date!
+  kkpMahasiswaSyaratKelengkapan: KkpMahasiswaSyaratKelengkapan!
+  approvalStatus: ApprovalStatus!
+}
+
+type ApprovalStatus {
+  id: ID!
+  nama: String!
+  keterangan: String
+  kkpApprovals: [KkpApproval!]
+  kkpMahasiswaSyaratKelengkapanApprovals: [KkpMahasiswaSyaratKelengkapanApproval!]
+}
+
+type KkpApproval {
+  id: ID!
+  tanggal_jam: Date
+  keterangan: String
+  approvalStatus: ApprovalStatus
+  kkp: Kkp!
+}
+
+type Kkp {
+  id: ID!
+  prodi_kode_prodi: String
+  no_surat: String
+  tanggal_surat: Date
+  no_sk_kkp: String
+  tanggal_sk_kkp: Date
+  instansi: String
+  tempat: String
+  mahasiswa_nim_ketua: String
+  dosen_nidn_pembimbing_prodi: String
+  nama_pembimbing_lapangan: String
+  keterangan: String
+  created_by: String
+  updated_by: String
+  created_at: String!
+  updated_at: String!
+  approvals: [KkpApproval!]
+}
+
+type KkpInstansiBagianApproval {
+  id: ID!
+  kkp_instansi_bagian_id: String!
+  approval_status_id: String!
+  approvalStatus: ApprovalStatus!
+  keterangan: String
+  created_by: String
+  updated_by: String
+  created_at: Date!
+  updated_at: Date!
+  kkpInstansiBagian: KkpInstansiBagian!
+}
+
+type KkpInstansiBagian {
+  id: ID!
+  kkp_instansi_id: String!
+  nama: String!
+  alamat: String
+  keterangan: String
+  is_activated: Boolean!
+  created_by: String
+  updated_by: String
+  created_at: Date!
+  updated_at: Date!
+  kkpInstansi: KkpInstansi!
+  approvals: [KkpInstansiBagianApproval!]
+}
+
+type KkpInstansiApproval {
+  id: String!
+  kkp_instansi_id: String!
+  kkpInstansi: KkpInstansi!
+  approval_status_id: String!
+  approvalStatus: ApprovalStatus!
+  keterangan: String
+  created_by: String
+  updated_by: String
+  created_at: Date!
+  updated_at: Date!
+}
+
+type KkpInstansi {
+  id: ID!
+  nama: String!
+  alamat: String
+  keterangan: String
+  logo: String
+  is_activated: Boolean!
+  created_by: String
+  updated_by: String
+  created_at: Date!
+  updated_at: Date!
+  bagian: [KkpInstansiBagian!]
+  approvals: [KkpInstansiApproval!]
+}
+
+type KelengkapanOutput {
+  kelengkapan_id: ID
+  uploaded_file_id: String
+  keterangan: String
+  updated_at: Date
+}
+
+type ApprovalOutput {
+  approval_id: ID
+  approval_status_id: String
+  approval_status_nama: String
+  updated_at: Date
+}
+
+type MahasiswaKkpSyaratApprovalOutput {
+  mahasiswa_nim: String!
+  syarat_id: ID!
+  syarat_nama: String!
+  latest_kelengkapan: KelengkapanOutput
+  latest_approval: ApprovalOutput
+}
+
+type ApprovedMahasiswaOutput {
+  kkpMahasiswaid: ID!
+  nim: String!
+  nama: String!
+  prodi: String!
+}
+
+type KkpMahasiswaApprovalStatsOutput {
+  kkpMahasiswaId: ID!
+  nim: String!
+  nama: String!
+  prodi: String!
+  persentaseSyaratDisetujui: Float!
+  jumlahSyaratDisetujui: Float!
+  jumlahSyarat: Float!
+}
+
+type FindAllApprovedDto {
+  id: String!
+  nama: String!
+  alamat: String
+  logo: String
+  approval_status_id: String!
+  latest_keterangan: String
+  approval_status: String
+}
+
+type KkpInstansiOutput {
+  id: String!
+  nama: String!
+  alamat: String
+  logo: String
+  keterangan: String
+  is_activated: Boolean!
+  created_by: String
+  updated_by: String
+  created_at: Date!
+  updated_at: Date!
+  approvals: [KkpInstansiApproval!]
+  latest_approval_status_id: String
+  latest_approval_status: String
+  latest_approval_keterangan: String
+  latest_approval_created_at: Date
+}
+
+type KkpInstansiBagianOutput {
+  id: ID!
+  kkp_instansi_id: String!
+  kkpInstansi: KkpInstansi!
+  nama: String!
+  alamat: String
+  keterangan: String
+  approvals: [KkpInstansiBagianApproval!]
+  latest_approval_status_id: String
+  latest_approval_status: String
+  latest_approval_keterangan: String
+  latest_approval_created_at: Date
+}
+
+type KkpMahasiswaSyaratKelengkapanOutput {
+  id: ID!
+  kkp_mahasiswa_syarat_id: ID!
+  uploaded_file_id: String
+  get_response: JSONObject
+  get_approved: Boolean!
+  keterangan: String
+  created_by: String
+  updated_by: String
+  created_at: Date!
+  updated_at: Date!
+  kkpMahasiswaSyarat: KkpMahasiswaSyarat
+  approvals: [KkpMahasiswaSyaratKelengkapanApproval!]
+}
+
+type UserProfile {
+  username: String!
+  fullname: String
+  department: String
+  role: String
+}
+
+type LoginResponse {
+  access_token: String!
+}
+
+type SigninResponse {
+  access_token: String!
+}
+
+"""
+Date custom scalar type
+"""
+scalar Date
+
+type Query {
+  sayHello: String!
+  profile: UserProfile!
+  getAllMahasiswas: [Mahasiswa!]!
+  getMahasiswa(nim: String!): Mahasiswa!
+  getAllKkps: [Kkp!]!
+  getKkp(id: String!): Kkp!
+  getAllApprovalStatuses: [ApprovalStatus!]!
+  getAllKkpApprovals: [KkpApproval!]!
+  getKkpApproval(id: String!): KkpApproval!
+  getAllKkpMahasiswas: [KkpMahasiswa!]!
+  getKkpMahasiswa(id: String!): KkpMahasiswa!
+  getMahasiswaKkpSyaratWithApproval(nim: String!): [MahasiswaKkpSyaratApprovalOutput!]!
+  getAllApprovedMahasiswa: [ApprovedMahasiswaOutput!]!
+  getAllApprovedMahasiswaStats: [KkpMahasiswaApprovalStatsOutput!]!
+  cekKkpMahasiswa(nim: String!): Boolean!
+  getAllFakultas: [Fakultas!]!
+  getFakultas(id: Int!): Fakultas!
+  getAllProdis: [Prodi!]!
+  getProdi(id: Float!): Prodi!
+  getProdiByKodeProdi(kodeProdi: String!): Prodi!
+  getAllKkpSyarat: [KkpSyarat!]!
+  getKkpSyaratByKodeProdi(kodeProdi: String!): [KkpSyarat!]!
+  getKkpSyarat(id: String!): KkpSyarat!
+  getKkpMahasiswaSyarat(id: String!): KkpMahasiswaSyarat!
+  getApprovalTimeline(nim: String!, kkp_syarat_id: String!): [KkpMahasiswaSyarat!]!
+  getAllKkpInstansi: [KkpInstansiOutput!]!
+  getKkpInstansi(id: String!): KkpInstansiOutput!
+  getAllApprovedInstansi: [FindAllApprovedDto!]!
+  getAllKkpInstansiApprovals: [KkpInstansiApproval!]!
+  getKkpInstansiApproval(id: String!): KkpInstansiApproval!
+  getAllKkpInstansiBagians: [KkpInstansiBagianOutput!]!
+  getKkpInstansiBagian(id: String!): KkpInstansiBagianOutput!
+  getAllKkpInstansiBagianApprovals: [KkpInstansiBagianApproval!]!
+  getKkpInstansiBagianApproval(id: String!): KkpInstansiBagianApproval!
+  getKkpMahasiswaSyaratKelengkapan(id: String!): KkpMahasiswaSyaratKelengkapanOutput!
+  getAllKkpMahasiswaSyaratKelengkapanApprovals: [KkpMahasiswaSyaratKelengkapanApproval!]!
+  getKkpMahasiswaSyaratKelengkapanApproval(id: String!): KkpMahasiswaSyaratKelengkapanApproval!
+}
+
+type Mutation {
+  login(username: String!, password: String!): LoginResponse!
+  signin(loginUserInput: SigninUserInput!): SigninResponse!
+  createKkp(input: CreateKkpInput!): Kkp!
+  createKkpApproval(input: CreateKkpApprovalInput!): KkpApproval!
+  createProdi(createProdiInput: CreateProdiInput!): Prodi!
+  updateProdi(updateProdiInput: UpdateProdiInput!): Prodi!
+  removeProdi(id: Float!): Prodi!
+  createKkpSyarat(input: CreateKkpSyaratInput!): KkpSyarat!
+  updateKkpSyarat(id: String!, input: UpdateKkpSyaratInput!): KkpSyarat!
+  removeKkpSyarat(id: String!): KkpSyarat!
+  ajukanKkpInstansi(createKkpInstansiInput: CreateKkpInstansiInput!): KkpInstansi!
+  createKkpInstansiApproval(input: CreateKkpInstansiApprovalInput!): KkpInstansiApproval!
+  createKkpInstansiBagian(createKkpInstansiBagianInput: CreateKkpInstansiBagianInput!): KkpInstansiBagian!
+  updateKkpInstansiBagian(id: String!, updateKkpInstansiBagianInput: UpdateKkpInstansiBagianInput!): KkpInstansiBagian!
+  removeKkpInstansiBagian(id: String!): KkpInstansiBagian!
+  createKkpInstansiBagianApproval(
+    createKkpInstansiBagianApprovalInput: CreateKkpInstansiBagianApprovalInput!
+  ): KkpInstansiBagianApproval!
+  updateKkpInstansiBagianApproval(
+    id: String!
+    updateKkpInstansiBagianApprovalInput: UpdateKkpInstansiBagianApprovalInput!
+  ): KkpInstansiBagianApproval!
+  removeKkpInstansiBagianApproval(id: String!): KkpInstansiBagianApproval!
+  createKkpMahasiswaSyaratKelengkapan(
+    createKkpMahasiswaSyaratKelengkapanInput: CreateKkpMahasiswaSyaratKelengkapanInput!
+  ): KkpMahasiswaSyaratKelengkapanOutput!
+  createKkpMahasiswaSyaratKelengkapanApproval(
+    createKkpMahasiswaSyaratKelengkapanApprovalInput: CreateKkpMahasiswaSyaratKelengkapanApprovalInput!
+  ): KkpMahasiswaSyaratKelengkapanApproval!
+  updateKkpMahasiswaSyaratKelengkapanApproval(
+    id: String!
+    updateKkpMahasiswaSyaratKelengkapanApprovalInput: UpdateKkpMahasiswaSyaratKelengkapanApprovalInput!
+  ): KkpMahasiswaSyaratKelengkapanApproval!
+  removeKkpMahasiswaSyaratKelengkapanApproval(id: String!): KkpMahasiswaSyaratKelengkapanApproval!
+}
+
+input SigninUserInput {
+  username: String!
+  password: String!
+}
+
+input CreateKkpInput {
+  prodi_kode_prodi: String
+  no_surat: String
+  tanggal_surat: String
+  no_sk_kkp: String
+  tanggal_sk_kkp: String
+  instansi: String
+  tempat: String
+  mahasiswa_nim_ketua: String
+  dosen_nidn_pembimbing_prodi: String
+  nama_pembimbing_lapangan: String
+  keterangan: String
+  created_by: String
+}
+
+input CreateKkpApprovalInput {
+  kkp_id: String!
+  approval_status_id: Float!
+  tanggal_jam: Date
+  keterangan: String
+}
+
+input CreateProdiInput {
+  kode_fakultas: String!
+  kode_prodi: String!
+  nama_prodi: String!
+  nama_prodi_eng: String
+  gelar_pendek: String
+  gelar_panjang: String
+  gelar_eng: String
+  total_sks_lulus: Float
+  nidn_ketua_prodi: String
+}
+
+input UpdateProdiInput {
+  kode_fakultas: String
+  kode_prodi: String
+  nama_prodi: String
+  nama_prodi_eng: String
+  gelar_pendek: String
+  gelar_panjang: String
+  gelar_eng: String
+  total_sks_lulus: Float
+  nidn_ketua_prodi: String
+  id: ID!
+}
+
+input CreateKkpSyaratInput {
+  prodi_kode_prodi: String!
+  nama: String!
+  logo: String
+  url_check: String
+  response_should_be: String
+  is_upload_file: Boolean
+  is_activated: Boolean
+  created_by: String
+}
+
+input UpdateKkpSyaratInput {
+  prodi_kode_prodi: String
+  nama: String
+  logo: String
+  url_check: String
+  response_should_be: String
+  is_upload_file: Boolean
+  is_activated: Boolean
+  created_by: String
+  id: String!
+}
+
+input CreateKkpInstansiInput {
+  nama: String!
+  alamat: String
+  logo: String
+  keterangan: String
+  created_by: String
+  updated_by: String
+  is_activated: Boolean = true
+}
+
+input CreateKkpInstansiApprovalInput {
+  kkp_instansi_id: String!
+  approval_status_id: String
+  keterangan: String
+  created_by: String
+  updated_by: String
+}
+
+input CreateKkpInstansiBagianInput {
+  kkp_instansi_id: String!
+  nama: String!
+  alamat: String
+  keterangan: String
+  is_activated: Boolean!
+}
+
+input UpdateKkpInstansiBagianInput {
+  kkp_instansi_id: String
+  nama: String
+  alamat: String
+  keterangan: String
+  is_activated: Boolean
+  id: String!
+}
+
+input CreateKkpInstansiBagianApprovalInput {
+  kkp_instansi_bagian_id: String!
+  approval_status_id: String
+  keterangan: String
+}
+
+input UpdateKkpInstansiBagianApprovalInput {
+  kkp_instansi_bagian_id: String
+  approval_status_id: String
+  keterangan: String
+  id: String!
+}
+
+input CreateKkpMahasiswaSyaratKelengkapanInput {
+  kkp_mahasiswa_syarat_id: String!
+  uploaded_file_id: String
+  get_response: JSON
+  get_approved: Boolean
+  keterangan: String
+  created_by: String
+  updated_by: String
+}
+
+"""
+The `JSON` scalar type represents JSON values as specified by [ECMA-404
+](http: //www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
+"""
+scalar JSON
+
+input CreateKkpMahasiswaSyaratKelengkapanApprovalInput {
+  kkp_mahasiswa_syarat_kelengkapan_id: String!
+  approval_status_id: String
+  keterangan: String
+  created_by: String
+  updated_by: String
+}
+
+input UpdateKkpMahasiswaSyaratKelengkapanApprovalInput {
+  kkp_mahasiswa_syarat_kelengkapan_id: String
+  approval_status_id: String
+  keterangan: String
+  created_by: String
+  updated_by: String
+}
