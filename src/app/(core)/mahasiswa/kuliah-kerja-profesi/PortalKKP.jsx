@@ -91,14 +91,6 @@ export default function DashboardPage() {
     setNewInstansi(prev => ({ ...prev, [name]: value }))
   }
 
-  const handleLogoUpload = (file) => {
-    // Implement file handling logic
-  }
-
-  const handleSubmit = () => {
-    // Implement submission logic
-  }
-
   useEffect(() => {
     if (dataSyarat) {
       setPersyaratan(
