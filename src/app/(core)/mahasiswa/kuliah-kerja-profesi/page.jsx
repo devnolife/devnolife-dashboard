@@ -1,6 +1,7 @@
 import React from 'react';
 
 import PortalKKP from './PortalKKP';
+import Dashboard from './Dashboard';
 
 const statusKpp = false;
 const konfirmasi = true

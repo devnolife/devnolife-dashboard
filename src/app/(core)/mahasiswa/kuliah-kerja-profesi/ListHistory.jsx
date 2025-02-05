@@ -30,6 +30,8 @@ import {
 } from '@tanstack/react-table'
 
 
+import { Avatar, AvatarGroup } from '@mui/material'
+
 import OptionMenu from '@core/components/option-menu'
 import CustomAvatar from '@core/components/mui/Avatar'
 import TablePaginationComponent from '@components/TablePaginationComponent'
@@ -46,7 +48,6 @@ const fuzzyFilter = (row, columnId, value, addMeta) => {
   addMeta({
     itemRank
   })
-
 
   return itemRank.passed
 }
@@ -73,7 +74,30 @@ const DebouncedInput = ({ value: initialValue, onChange, debounce = 500, ...prop
 
 const columnHelper = createColumnHelper()
 
-const dataFake = []
+const dataFake = [
+  {
+    kelompok: 'Kelompok 1',
+    mahasiswa: [
+      { nama: 'Ali Rahman', avatar: '/avatars/ali.jpg' },
+      { nama: 'Budi Santoso', avatar: '/avatars/budi.jpg' }
+    ],
+    namaInstansi: 'PT XYZ',
+    jenisInstansi: 'Swasta',
+    tanggalMasuk: '2024-01-10',
+    tanggalKeluar: '2024-04-10'
+  },
+  {
+    kelompok: 'Kelompok 2',
+    mahasiswa: [
+      { nama: 'Citra Lestari', avatar: '/avatars/citra.jpg' },
+      { nama: 'Dewi Anggraini', avatar: '/avatars/dewi.jpg' }
+    ],
+    namaInstansi: 'Kementerian Keuangan',
+    jenisInstansi: 'Pemerintah',
+    tanggalMasuk: '2024-02-15',
+    tanggalKeluar: '2024-05-15'
+  }
+]
 
 const HistoryKKP = () => {
 
@@ -83,36 +107,17 @@ const HistoryKKP = () => {
   const [globalFilter, setGlobalFilter] = useState('')
   const [jenisInstansi, setJenisInstansi] = useState('')
 
-
-  const { lang: locale } = useParams()
-
   const columns = useMemo(
     () => [
-      {
-        id: 'select',
-        header: ({ table }) => (
-          <Checkbox
-            {...{
-              checked: table.getIsAllRowsSelected(),
-              indeterminate: table.getIsSomeRowsSelected(),
-              onChange: table.getToggleAllRowsSelectedHandler()
-            }}
-          />
-        ),
-        cell: ({ row }) => (
-          <Checkbox
-            {...{
-              checked: row.getIsSelected(),
-              disabled: !row.getCanSelect(),
-              indeterminate: row.getIsSomeSelected(),
-              onChange: row.getToggleSelectedHandler()
-            }}
-          />
-        )
-      },
-      columnHelper.accessor('namaMahasiswa', {
+      columnHelper.accessor('mahasiswa', {
         header: 'Mahasiswa',
-        cell: ({ row }) => <Typography>{row.original.namaMahasiswa}</Typography>
+        cell: ({ row }) => (
+          <AvatarGroup max={3}>
+            {row.original.mahasiswa.map((mhs, index) => (
+              <Avatar key={index} alt={mhs.nama} src={mhs.avatar} />
+            ))}
+          </AvatarGroup>
+        )
       }),
       columnHelper.accessor('namaInstansi', {
         header: 'Nama Instansi',
@@ -192,9 +197,10 @@ const HistoryKKP = () => {
         <div className='flex flex-col items-start gap-4 sm:flex-row max-sm:is-full sm:items-center'>
           <CustomTextField
             select
-            label='Jenis Instansi'
             value={jenisInstansi}
+            className='w-[160px]'
             onChange={e => setJenisInstansi(e.target.value)}
+            SelectProps={{ displayEmpty: true }}
           >
             <MenuItem value=''>Semua</MenuItem>
             <MenuItem value='Pemerintah'>Pemerintah</MenuItem>
