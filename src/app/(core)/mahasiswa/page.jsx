@@ -1,7 +1,10 @@
 import Grid from '@mui/material/Grid'
 
-import WelcomeCard from '@views/mahasiswa/dashboard/WelcomeCard'
+import { Divider } from '@mui/material'
 
+import CardAkademik from '@views/mahasiswa/akademik/quick-actions/CardAkademik'
+
+import WelcomeCard from '@views/mahasiswa/dashboard/WelcomeCard'
 import ProgressTable from '@views/mahasiswa/dashboard/ProgressTable'
 import CardDosen from '@/views/mahasiswa/dashboard/DosenCards'
 
@@ -104,9 +107,14 @@ const dataPembimbingKKP = [
 ]
 
 
+
 const Dashhboard = () => {
   return (
     <Grid container spacing={3}>
+      <Grid item xs={12}>
+        <CardAkademik />
+      </Grid>
+      <Divider sx={{ my: 2 }} />
       <Grid item xs={12}>
         <WelcomeCard data={dataWelcome} />
       </Grid>
