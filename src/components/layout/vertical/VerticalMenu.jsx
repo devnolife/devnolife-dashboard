@@ -66,7 +66,11 @@ const VerticalMenu = ({ scrollMenu }) => {
         menuItems.push({ href: '/prdi', icon: 'tabler-book', label: 'Dashboard' })
         break
       case 'tatausaha':
-        menuItems.push({ href: '/tatausaha', icon: 'tabler-building', label: 'Dashboard' })
+        menuItems.push({ href: '/administrasi', icon: 'tabler-building', label: 'Dashboard' })
+        menuItems.push({ href: '/administrasi/pengajuan-ujian', icon: 'tabler-checklist', label: 'Pengajuan Ujian' })
+        menuItems.push({ href: '/administrasi/pengajuan-surat', icon: 'tabler-mail', label: 'Pengajuan Surat' })
+        menuItems.push({ href: '/administrasi/jadwal-fakultas', icon: 'tabler-calendar', label: 'Jadwal Fakultas' })
+        menuItems.push({ href: '/administrasi/setting-surat', icon: 'tabler-settings', label: 'Setting Surat' })
         break
       default:
         break

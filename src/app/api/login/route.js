@@ -8,7 +8,7 @@ export async function POST(req) {
       admin: { username: 'admin', password: 'admin123' },
       mahasiswa: { username: 'mahasiswa', password: 'mahasiswa123' },
       fakultas: { username: 'fakultas', password: 'fakultas123' },
-      fakultas: { username: 'fakultas', password: 'prodi123' },
+      fakultas: { username: 'prodi', password: 'prodi123' },
       tatausaha: { username: 'tatausaha', password: 'tatausaha123' }
     }
 
