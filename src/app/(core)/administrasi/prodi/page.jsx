@@ -5,6 +5,7 @@ import Chart from './Chart'
 import RecentActity from './Recent'
 import TableSurat from './TableSurat'
 
+
 const Page = () => {
   return (
     <Grid container spacing={2}>
