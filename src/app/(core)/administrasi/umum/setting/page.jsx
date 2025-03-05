@@ -1,6 +1,8 @@
+/* eslint-disable import/newline-after-import */
 import dynamic from 'next/dynamic'
 
 import Settings from './Setting'
+1
 
 const tabContentList = () => ({
   'jenis-surat': <div>Halaman Jenis Surat</div>,
