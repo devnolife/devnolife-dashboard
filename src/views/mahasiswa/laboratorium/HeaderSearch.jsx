@@ -8,26 +8,25 @@ import CustomIconButton from '@core/components/mui/IconButton'
 import CustomTextField from '@core/components/mui/TextField'
 
 import { useImageVariant } from '@core/hooks/useImageVariant'
+import { laboratoryConfig } from '@/config/laboratoryConfig'
 
 const SearchHeader = ({ searchValue, setSearchValue }) => {
-  const lightIllustration = '/images/apps/academy/hand-with-bulb-light.png'
-  const darkIllustration = '/images/apps/academy/hand-with-bulb-dark.png'
   const theme = useTheme()
-  const leftIllustration = useImageVariant(lightIllustration, darkIllustration)
+  const leftIllustration = useImageVariant(laboratoryConfig.lightIllustration, laboratoryConfig.darkIllustration)
 
   return (
     <Card className='relative flex justify-center'>
       <img src={leftIllustration} className='max-md:hidden absolute max-is-[100px] top-12 start-12' />
       <div className='flex flex-col items-center gap-4 max-md:pli-5 plb-12 md:is-1/2'>
         <Typography variant='h4' className='text-center md:is-3/4'>
-          <span className='text-primary'>Laboratorium atau Pratikum</span> mendukung pembelajaran Anda di semester ini!
+          <span className='text-primary'>{laboratoryConfig.headerTitle}</span> {laboratoryConfig.headerSubtitle}
         </Typography>
         <Typography className='text-center'>
-          Jelajahi berbagai pilihan lab yang dirancang untuk memperkaya pengetahuan Anda. Sesuaikan jadwal dan pilih lab yang sesuai dengan tujuan akademik Anda.
+          {laboratoryConfig.description}
         </Typography>
         <div className='flex items-center gap-4 max-sm:is-full'>
           <CustomTextField
-            placeholder='Pencarian ...'
+            placeholder={laboratoryConfig.searchPlaceholder}
             value={searchValue}
             onChange={e => setSearchValue(e.target.value)}
             className='sm:is-[350px] max-sm:flex-1'
@@ -38,7 +37,7 @@ const SearchHeader = ({ searchValue, setSearchValue }) => {
         </div>
       </div>
       <img
-        src='/images/apps/academy/9.png'
+        src={laboratoryConfig.rightIllustration}
         className={classnames('max-md:hidden absolute max-bs-[180px] bottom-0 end-0', {
           'scale-x-[-1]': theme.direction === 'rtl'
         })}

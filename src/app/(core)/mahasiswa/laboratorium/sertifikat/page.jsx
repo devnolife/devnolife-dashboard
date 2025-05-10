@@ -25,6 +25,7 @@ import { useReactToPrint } from 'react-to-print'
 
 import CustomAvatar from '@core/components/mui/Avatar'
 
+import styles from './styles.module.css'
 
 const AppReactApexCharts = dynamic(() => import('@/libs/styles/AppReactApexCharts'))
 
@@ -93,7 +94,7 @@ const data = [
       <svg xmlns='http://www.w3.org/2000/svg' width='38' height='38' viewBox='0 0 38 38' fill='none'>
         <path
           opacity='0.2'
-          d='M8.08984 29.9102C6.72422 28.5445 7.62969 25.6797 6.93203 24.0023C6.23438 22.325 3.5625 20.8555 3.5625 19C3.5625 17.1445 6.20469 15.7344 6.93203 13.9977C7.65938 12.2609 6.72422 9.45547 8.08984 8.08984C9.45547 6.72422 12.3203 7.62969 13.9977 6.93203C15.675 6.23438 17.1445 3.5625 19 3.5625C20.8555 3.5625 22.2656 6.20469 24.0023 6.93203C25.7391 7.65938 28.5445 6.72422 29.9102 8.08984C31.2758 9.45547 30.3703 12.3203 31.068 13.9977C31.7656 15.675 34.4375 17.1445 34.4375 19C34.4375 20.8555 31.7953 22.2656 31.068 24.0023C30.3406 25.7391 31.2758 28.5445 29.9102 29.9102C28.5445 31.2758 25.6797 30.3703 24.0023 31.068C22.325 31.7656 20.8555 34.4375 19 34.4375C17.1445 34.4375 15.7344 31.7953 13.9977 31.068C12.2609 30.3406 9.45547 31.2758 8.08984 29.9102Z'
+          d='M8.08984 29.9102C6.72422 28.5445 7.62969 25.6797 6.93203 24.0023C6.23438 22.325 3.5625 20.8555 3.5625 19C3.5625 17.1445 6.20469 15.7344 6.93203 13.9977C7.65938 12.2609 6.72422 9.45547 8.08984 8.08984C9.45547 6.72422 12.3203 7.62969 13.9977 6.93203C15.675 6.23437 17.1445 3.5625 19 3.5625C20.8555 3.5625 22.2656 6.20469 24.0023 6.93203C25.7391 7.65937 28.5445 6.72422 29.9102 8.08984C31.2758 9.45547 30.3703 12.3203 31.068 13.9977C31.7656 15.675 34.4375 17.1445 34.4375 19C34.4375 20.8555 31.7953 22.2656 31.068 24.0023C30.3406 25.7391 31.2758 28.5445 29.9102 29.9102C28.5445 31.2758 25.6797 30.3703 24.0023 31.068C22.325 31.7656 20.8555 34.4375 19 34.4375C17.1445 34.4375 15.7344 31.7953 13.9977 31.068C12.2609 30.3406 9.45547 31.2758 8.08984 29.9102Z'
           fill='currentColor'
         />
         <path
@@ -293,36 +294,34 @@ const Sertifikat = () => {
   return (
     <>
       <div ref={contentRef}>
-        <div className='flex justify-between mb-4'>
+        <div className={styles.buttonContainer}>
           <Button
             onClick={() => router.back()}
             variant='contained' color='primary'>Kembali</Button>
           <Button onClick={reactToPrintFn} variant='contained' color='secondary'>Print Sertifikat</Button>
         </div>
       </div>
-      <div className='flex flex-col gap-6 md:flex-row md:items-center plb-6'>
-        <div className='md:w-8/12'>
-          <div className='flex flex-col items-baseline gap-1 mb-1 md:flex-row'>
+      <div className={styles.headerContainer}>
+        <div className={styles.headerLeft}>
+          <div className={styles.headerTitle}>
             <Typography variant='h5'>Sertifikat Labolatorium,</Typography>
             <Typography variant='h4'>Dhia Daifullah 👋🏻</Typography>
           </div>
-          <div className='mb-2'>
-            <div className='mb-1'>
-              <Typography>Atas keberhasilan menyelesaikan Labolatorium</Typography>
-              <div className='flex flex-col items-center justify-between md:flex-row'>
-                <Typography variant='h5'>Backend Developer Nest JS</Typography>
-                <div className='flex flex-wrap'>
-                  <Chip label='Typescript' color='info' variant='tonal' className='m-1' />
-                  <Chip label='NodeJS' color='warning' variant='tonal' className='m-1' />
-                  <Chip label='Docker' color='success' variant='tonal' className='m-1' />
-                  <Chip label='PostgreSQL' color='secondary' variant='tonal' className='m-1' />
-                </div>
+          <div className={styles.headerSubtitle}>
+            <Typography>Atas keberhasilan menyelesaikan Labolatorium</Typography>
+            <div className={styles.headerDetails}>
+              <Typography variant='h5'>Backend Developer Nest JS</Typography>
+              <div className={styles.chipContainer}>
+                <Chip label='Typescript' color='info' variant='tonal' className={styles.chip} />
+                <Chip label='NodeJS' color='warning' variant='tonal' className={styles.chip} />
+                <Chip label='Docker' color='success' variant='tonal' className={styles.chip} />
+                <Chip label='PostgreSQL' color='secondary' variant='tonal' className={styles.chip} />
               </div>
             </div>
           </div>
-          <div className='flex flex-wrap justify-between gap-6'>
+          <div className={styles.dataContainer}>
             {data.map((item, i) => (
-              <div key={i} className='flex gap-4'>
+              <div key={i} className={styles.dataItem}>
                 <CustomAvatar variant='rounded' skin='light' size={54} color={item.color}>
                   {item.icon ? item.icon : <Typography>belum ditambahkan gambar</Typography>}
                 </CustomAvatar>
@@ -339,8 +338,8 @@ const Sertifikat = () => {
 
         <Divider orientation={belowMdScreen ? 'horizontal' : 'vertical'} flexItem />
 
-        <div className='flex flex-col items-center justify-between md:flex-row md:w-4/12'>
-          <div className='flex flex-col justify-between gap-6'>
+        <div className={styles.headerRight}>
+          <div className={styles.totalTimeContainer}>
             <div>
               <Typography variant='h4' className='mt-1'>
                 Total Waktu Belajar
@@ -364,10 +363,10 @@ const Sertifikat = () => {
               <AppReactApexCharts type='bar' height={296} width='100%' series={series} options={barOptions} />
             </Grid>
             <Grid item xs={12} sm={6} alignSelf='center'>
-              <div className='flex flex-col items-start justify-around md:flex-row'>
-                <div className='flex flex-col gap-y-12'>
+              <div className={styles.competencyContainer}>
+                <div className={styles.competencyColumn}>
                   {leftData.map((item, i) => (
-                    <div key={i} className='flex gap-2'>
+                    <div key={i} className={styles.competencyItem}>
                       <i className={classnames('tabler-circle-filled text-xs m-[5px]', item.colorClass)} />
                       <div>
                         <Typography sx={{ fontSize: '0.85rem' }}>{item.title}</Typography>
@@ -376,9 +375,9 @@ const Sertifikat = () => {
                     </div>
                   ))}
                 </div>
-                <div className='flex flex-col gap-y-12'>
+                <div className={styles.competencyColumn}>
                   {rightData.map((item, i) => (
-                    <div key={i} className='flex gap-2'>
+                    <div key={i} className={styles.competencyItem}>
                       <i className={classnames('tabler-circle-filled text-xs m-[5px]', item.colorClass)} />
                       <div>
                         <Typography sx={{ fontSize: '0.85rem' }}>{item.title}</Typography>
@@ -397,4 +396,3 @@ const Sertifikat = () => {
 }
 
 export default Sertifikat
-

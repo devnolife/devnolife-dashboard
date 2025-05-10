@@ -19,7 +19,6 @@ import Switch from '@mui/material/Switch'
 import Typography from '@mui/material/Typography'
 import Pagination from '@mui/material/Pagination'
 
-
 import DirectionalIcon from '@components/DirectionalIcon'
 
 const chipColor = {
@@ -30,6 +29,101 @@ const chipColor = {
   'Semester 5': { color: 'info' },
   'Semester 6': { color: 'secondary' }
 }
+
+const filterData = (courseData, hideCompleted, course, searchValue) => {
+  let newData = courseData;
+
+  if (hideCompleted) {
+    newData = newData.filter(courseItem => !courseItem.selesai);
+  }
+
+  if (course !== 'All') {
+    newData = newData.filter(courseItem => courseItem.semester === course);
+  }
+
+  if (searchValue) {
+    newData = newData.filter(category => category.namaLab.toLowerCase().includes(searchValue.toLowerCase()));
+  }
+
+  return newData;
+};
+
+const CourseCard = ({ item }) => (
+  <Grid item xs={12} sm={6} md={4}>
+    <Card className='flex flex-col justify-between h-full'>
+      <div>
+        <img src={item.gambarLab} alt={item.namaLab} className='w-full h-[200px] object-cover' />
+        <CardContent className='flex flex-col gap-4 p-5'>
+          <div className='flex items-center justify-between'>
+            <Chip
+              label={item.semester}
+              variant='tonal'
+              size='small'
+              color={chipColor[item.semester]?.color || 'default'}
+            />
+            <Typography>{`(${item.pengurusLab})`}</Typography>
+          </div>
+          <Typography
+            variant='h5'
+            component={Link}
+            href={'/apps/academy/lab-details'}
+            className='hover:text-primary'
+          >
+            {item.namaLab}
+          </Typography>
+          <Typography className='overflow-hidden text-ellipsis' title={item.desc}>
+            {item.desc}
+          </Typography>
+          <div className='flex items-center justify-between'>
+            <div className='flex items-center gap-1'>
+              <i className='text-xl tabler-clock' />
+              <Typography>{`${item.time} Menit`}</Typography>
+            </div>
+            <div className='flex items-center gap-1'>
+              <i className='text-xl tabler-checklist' />
+              <Typography>{`${item.pertemuan}/${item.total_pertemuan}`}</Typography>
+            </div>
+          </div>
+        </CardContent>
+      </div>
+      <div className='p-5 pt-0'>
+        <LinearProgress
+          color='primary'
+          value={Math.floor((item.pertemuan / item.total_pertemuan) * 100)}
+          variant='determinate'
+          className='mb-4 is-full bs-2'
+        />
+        {item.pertemuan === item.total_pertemuan ? (
+          <Button
+            variant='contained'
+            color='success'
+            endIcon={
+              <DirectionalIcon ltrIconClass='tabler-checklist' rtlIconClass='tabler-chevron-left' />
+            }
+            component={Link}
+            href={'/mahasiswa/laboratorium/sertifikat'}
+            className='w-full'
+          >
+            Sertifikat
+          </Button>
+        ) : (
+          <Button
+            fullWidth
+            variant='tonal'
+            endIcon={
+              <DirectionalIcon ltrIconClass='tabler-chevron-right' rtlIconClass='tabler-chevron-left' />
+            }
+            component={Link}
+            href={'/apps/academy/lab-details'}
+            className='w-full'
+          >
+            Lanjutkan
+          </Button>
+        )}
+      </div>
+    </Card>
+  </Grid>
+);
 
 const DashboardLab = ({ courseData, searchValue }) => {
   const [course, setCourse] = useState('All')
@@ -42,21 +136,7 @@ const DashboardLab = ({ courseData, searchValue }) => {
   };
 
   useEffect(() => {
-    let newData = courseData;
-
-    if (hideCompleted) {
-      newData = newData.filter(courseItem => !courseItem.selesai);
-    }
-
-    if (course !== 'All') {
-      newData = newData.filter(courseItem => courseItem.semester === course);
-    }
-
-    if (searchValue) {
-      newData = newData.filter(category => category.namaLab.toLowerCase().includes(searchValue.toLowerCase()));
-    }
-
-    setFilteredData(newData);
+    setFilteredData(filterData(courseData, hideCompleted, course, searchValue));
   }, [searchValue, course, hideCompleted]);
 
   return (
@@ -96,81 +176,7 @@ const DashboardLab = ({ courseData, searchValue }) => {
         {filteredData.length > 0 ? (
           <Grid container spacing={6}>
             {filteredData.slice(activePage * 6, activePage * 6 + 6).map((item, index) => (
-              <Grid item xs={12} sm={6} md={4} key={index}>
-                <Card className='flex flex-col justify-between h-full'>
-                  <div>
-                    <img src={item.gambarLab} alt={item.namaLab} className='w-full h-[200px] object-cover' />
-                    <CardContent className='flex flex-col gap-4 p-5'>
-                      <div className='flex items-center justify-between'>
-                        <Chip
-                          label={item.semester}
-                          variant='tonal'
-                          size='small'
-                          color={chipColor[item.semester]?.color || 'default'}
-                        />
-                        <Typography>{`(${item.pengurusLab})`}</Typography>
-                      </div>
-                      <Typography
-                        variant='h5'
-                        component={Link}
-                        href={'/apps/academy/lab-details'}
-                        className='hover:text-primary'
-                      >
-                        {item.namaLab}
-                      </Typography>
-                      <Typography className='overflow-hidden text-ellipsis' title={item.desc}>
-                        {item.desc}
-                      </Typography>
-                      <div className='flex items-center justify-between'>
-                        <div className='flex items-center gap-1'>
-                          <i className='text-xl tabler-clock' />
-                          <Typography>{`${item.time} Menit`}</Typography>
-                        </div>
-                        <div className='flex items-center gap-1'>
-                          <i className='text-xl tabler-checklist' />
-                          <Typography>{`${item.pertemuan}/${item.total_pertemuan}`}</Typography>
-                        </div>
-                      </div>
-
-                    </CardContent>
-                  </div>
-                  <div className='p-5 pt-0'>
-                    <LinearProgress
-                      color='primary'
-                      value={Math.floor((item.pertemuan / item.total_pertemuan) * 100)}
-                      variant='determinate'
-                      className='mb-4 is-full bs-2'
-                    />
-                    {item.pertemuan === item.total_pertemuan ? (
-                      <Button
-                        variant='contained'
-                        color='success'
-                        endIcon={
-                          <DirectionalIcon ltrIconClass='tabler-checklist' rtlIconClass='tabler-chevron-left' />
-                        }
-                        component={Link}
-                        href={'/mahasiswa/laboratorium/sertifikat'}
-                        className='w-full'
-                      >
-                        Sertifikat
-                      </Button>
-                    ) : (
-                      <Button
-                        fullWidth
-                        variant='tonal'
-                        endIcon={
-                          <DirectionalIcon ltrIconClass='tabler-chevron-right' rtlIconClass='tabler-chevron-left' />
-                        }
-                        component={Link}
-                        href={'/apps/academy/lab-details'}
-                        className='w-full'
-                      >
-                        Lanjutkan
-                      </Button>
-                    )}
-                  </div>
-                </Card>
-              </Grid>
+              <CourseCard key={index} item={item} />
             ))}
           </Grid>
         ) : (
